@@ -73,8 +73,8 @@ COPY startapp.sh /startapp.sh
 ##         EXPORTS AND VOLUMES         ##
 #########################################
 
-RUN mkdir -p /downloads
-chown -R nobody:users /downloads
+RUN mkdir -p /downloads &&n/
+chown -R nobody:users /downloads && /
 chmod -R g+rw /config
 
 # Place whatever volumes and ports you want exposed here:
