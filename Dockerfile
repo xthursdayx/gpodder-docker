@@ -64,8 +64,7 @@ RUN \
 apt-get install --no-install-recommends -y -q gpodder && \
 
 # clean up
-apt-get clean 
-hash -r
+apt-get clean
 
 # Copy gPodder start script to right location
 COPY startapp.sh /startapp.sh
