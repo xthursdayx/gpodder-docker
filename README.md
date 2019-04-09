@@ -16,7 +16,7 @@ docker run -d \
   -v /etc/localtime:/etc/localtime:ro \
   -p XXXX:8080 \
   -p XXXX:3389
-  xthursdaxy/docker-gpodder
+  xthursdayx/docker-gpodder
   
 #### Setup Instructions:
 
