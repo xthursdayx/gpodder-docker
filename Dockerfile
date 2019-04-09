@@ -73,7 +73,7 @@ COPY startapp.sh /startapp.sh
 ##         EXPORTS AND VOLUMES         ##
 #########################################
 
-RUN mkdir -p /downloads &&n/
+RUN mkdir -p /downloads && /
 chown -R nobody:users /downloads && /
 chmod -R g+rw /config
 
