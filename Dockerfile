@@ -41,21 +41,21 @@ echo 'deb http://archive.ubuntu.com/ubuntu trusty-updates main universe restrict
 # Install packages needed for app
 # export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
 apt-get update -y
-#apt-get install -y -qq \
-#    ca-certificates \
-#    dbus-x11 \
-#    git \
-#    gir1.2-gtk-3.0 \
-#	 gir1.2-webkit2-3.0 \
-#    libgtk-3-dev \
-#    python3-dbus \
-#    python3-gi \
-#    python3-gi-cairo \
-#    python3-eyed3 \
-#    python-html5lib \
-#    python3-magic \
-#    python3-webencodigns \
-#    --no-install-recommends
+apt-get install -y -q \
+    ca-certificates \
+    dbus-x11 \
+    git \
+    gir1.2-gtk-3.0 \
+	gir1.2-webkit2-3.0 \
+    libgtk-3-dev \
+    python3-dbus \
+    python3-gi \
+    python3-gi-cairo \
+    python3-eyed3 \
+    python-html5lib \
+    python3-magic \
+    python3-webencodings \
+    --no-install-recommends
 
 RUN \
 #########################################
