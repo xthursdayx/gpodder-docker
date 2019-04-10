@@ -54,10 +54,7 @@ apt-get install -y -q \
     python3-dbus \
     python3-gi \
     python3-gi-cairo \
-    python3-eyed3 \
     python-html5lib \
-    python3-magic \
-    python3-webencodings \
     --no-install-recommends
 
 RUN \
