@@ -65,7 +65,8 @@ apt-get install -y -q \
 RUN \
 echo "############ Installing gPodder ##################" && \
 apt-get install -y -q gpodder && \
-echo "############ Cleaning Up ##################" && \
+mkdir -p /downloads && \
+mkdir -p /config/extensions && \
 apt-get clean
 
 COPY startapp.sh /startapp.sh
@@ -75,8 +76,6 @@ COPY extensions/ /config/extensions/
 #########################################
 ##           PORTS AND VOLUMES         ##
 #########################################
-
-RUN mkdir -p /downloads
 
 VOLUME ["/downloads", "/config"]
 
