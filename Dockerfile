@@ -23,6 +23,9 @@ ENV HEIGHT=720
 # gPodder database and settings files
 ENV GPODDER_HOME /config
 
+# gPodder extensions directory
+ENV GPODDER_EXTENSIONS /config/Extensions
+
 # gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
 
@@ -62,6 +65,7 @@ apt-get install -y -q \
 RUN \
 echo "############ Installing gPodder ##################" && \
 apt-get install --no-install-recommends -y -q gpodder && \
+cp -a /usr/share/gpodder/extensions/. /config/Extensions/ && \
 echo "############ Cleaning Up ##################" && \
 apt-get clean
 
