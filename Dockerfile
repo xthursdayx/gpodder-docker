@@ -11,11 +11,11 @@ MAINTAINER xthursdayx
 
 # Set environment variables
 
-# User/Group Id gui app will be executed as default are 99 and 100
+# User/Group ID gPodder will be executed as - default are 99 and 100
 ENV USER_ID=99
 ENV GROUP_ID=100
 
-# Gui App Name
+# App Name
 ENV APP_NAME="gPodder"
 
 # Default resolution, change if you like
@@ -28,7 +28,7 @@ ENV GPODDER_HOME /config
 # gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
 
-# X11 Display?
+# X11 Display
 ENV DISPLAY=:1
 
 # Use baseimage-docker's init system
@@ -49,17 +49,18 @@ apt-get install -y -q \
     dbus-x11 \
     git \
     gir1.2-gtk-3.0 \
-	gir1.2-webkit2-3.0 \
+    gir1.2-webkit2-3.0 \
     libgtk-3-dev \
     python3-dbus \
     python3-gi \
     python3-gi-cairo \
     python-html5lib \
+    python-mutagen \
     --no-install-recommends
 
 RUN \
 #########################################
-##          INSTALL gPodder            ##
+##          INSTALL GPODDER            ##
 #########################################
 apt-get install --no-install-recommends -y -q gpodder && \
 
@@ -70,7 +71,7 @@ apt-get clean
 COPY startapp.sh /startapp.sh
 
 #########################################
-##         EXPORTS AND VOLUMES         ##
+##           PORTS AND VOLUMES         ##
 #########################################
 
 RUN mkdir -p /downloads
