@@ -15,18 +15,21 @@ MAINTAINER xthursdayx
 ENV USER_ID=99
 ENV GROUP_ID=100
 
-# Gui App Name default is "GUI_APPLICATION"
+# Gui App Name
 ENV APP_NAME="gPodder"
 
 # Default resolution, change if you like
 ENV WIDTH=1280
 ENV HEIGHT=720
 
-# gPodder satabase and settings files
+# gPodder database and settings files
 ENV GPODDER_HOME /config
 
 # gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
+
+# X11 Display?
+ENV DISPLAY=:1
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
@@ -40,7 +43,7 @@ echo 'deb http://archive.ubuntu.com/ubuntu trusty-updates main universe restrict
 
 # Install packages needed for app
 # export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
-apt-get update -y
+apt-get update -y && \
 apt-get install -y -q \
     ca-certificates \
     dbus-x11 \
