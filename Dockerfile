@@ -24,7 +24,7 @@ ENV HEIGHT=720
 ENV GPODDER_HOME /config
 
 # gPodder extensions directory
-ENV GPODDER_EXTENSIONS /config/Extensions
+ENV GPODDER_EXTENSIONS /config/extensions
 
 # gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
@@ -56,20 +56,20 @@ apt-get install -y -q \
     python3-gi-cairo \
     python-html5lib \
     python-mutagen \
-    python-eyed3 \
-    --no-install-recommends
+    python-eyed3 
 
 #########################################
 ##            INSTALL APP              ##
 #########################################
 RUN \
 echo "############ Installing gPodder ##################" && \
-apt-get install --no-install-recommends -y -q gpodder && \
-cp -a /usr/share/gpodder/extensions/. /config/Extensions/ && \
+apt-get install -y -q gpodder && \
 echo "############ Cleaning Up ##################" && \
 apt-get clean
 
 COPY startapp.sh /startapp.sh
+
+COPY extensions/ /config/extensions/
 
 #########################################
 ##           PORTS AND VOLUMES         ##
