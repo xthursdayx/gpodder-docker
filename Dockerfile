@@ -9,8 +9,6 @@ MAINTAINER xthursdayx
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 
-# Set environment variables
-
 # User/Group ID gPodder will be executed as - default are 99 and 100
 ENV USER_ID=99
 ENV GROUP_ID=100
@@ -18,7 +16,7 @@ ENV GROUP_ID=100
 # App Name
 ENV APP_NAME="gPodder"
 
-# Default resolution, change if you like
+# Default resolution
 ENV WIDTH=1280
 ENV HEIGHT=720
 
@@ -40,7 +38,6 @@ CMD ["/sbin/my_init"]
 RUN \
 echo 'deb http://archive.ubuntu.com/ubuntu trusty main universe restricted' > /etc/apt/sources.list && \
 echo 'deb http://archive.ubuntu.com/ubuntu trusty-updates main universe restricted' >> /etc/apt/sources.list && \
-
 echo "############ Installing packages needed for app ##################" && \
 export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
 apt-get update -y && \
@@ -65,7 +62,6 @@ apt-get install -y -q \
 RUN \
 echo "############ Installing gPodder ##################" && \
 apt-get install --no-install-recommends -y -q gpodder && \
-
 echo "############ Cleaning Up ##################" && \
 apt-get clean
 
