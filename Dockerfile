@@ -62,6 +62,9 @@ apt-get install -y -q \
 ##            INSTALL APP              ##
 #########################################
 RUN \
+mkdir -p /config && \
+mkdir -p /config/extensions && \
+mkdir -p /downloads && \
 echo "############ Installing gPodder ##################" && \
 apt-get install -y -q gpodder && \
 apt-get clean
