@@ -34,15 +34,15 @@ ENV DISPLAY=:1
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
-RUN \
 #########################################
 ##    REPOSITORIES AND DEPENDENCIES    ##
 #########################################
+RUN \
 echo 'deb http://archive.ubuntu.com/ubuntu trusty main universe restricted' > /etc/apt/sources.list && \
 echo 'deb http://archive.ubuntu.com/ubuntu trusty-updates main universe restricted' >> /etc/apt/sources.list && \
 
-# Install packages needed for app
-# export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
+echo "############ Installing packages needed for app ##################" && \
+export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
 apt-get update -y && \
 apt-get install -y -q \
     ca-certificates \
@@ -56,18 +56,19 @@ apt-get install -y -q \
     python3-gi-cairo \
     python-html5lib \
     python-mutagen \
+    python-eyed3 \
     --no-install-recommends
 
+#########################################
+##            INSTALL APP              ##
+#########################################
 RUN \
-#########################################
-##          INSTALL GPODDER            ##
-#########################################
+echo "############ Installing gPodder ##################" && \
 apt-get install --no-install-recommends -y -q gpodder && \
 
-# clean up
+echo "############ Cleaning Up ##################" && \
 apt-get clean
 
-# Copy gPodder start script to right location
 COPY startapp.sh /startapp.sh
 
 #########################################
@@ -76,7 +77,6 @@ COPY startapp.sh /startapp.sh
 
 RUN mkdir -p /downloads
 
-# Place whatever volumes and ports you want exposed here:
 VOLUME ["/downloads", "/config"]
 
 EXPOSE 8080 3389
