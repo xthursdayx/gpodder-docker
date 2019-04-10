@@ -56,6 +56,7 @@ apt-get install -y -q \
     python3-gi-cairo \
     python-html5lib \
     python-mutagen \
+    python3-mutagen \
     python-eyed3 
 
 #########################################
