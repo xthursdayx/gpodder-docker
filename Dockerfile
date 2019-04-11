@@ -64,9 +64,9 @@ apt-get install -y -q \
 RUN \
 echo "############ Installing gPodder ##################" && \
 apt-get install -y -q gpodder && \
-apt-get clean
-mkdir -p /config/extensions
-chown -R nobody:users /config
+apt-get clean && \
+mkdir -p /config/extensions && \
+chown -R nobody:users /config && \
 chmod -R g+rw /config
 	
 COPY startapp.sh /startapp.sh
