@@ -62,21 +62,18 @@ apt-get install -y -q \
 ##            INSTALL APP              ##
 #########################################
 RUN \
-mkdir -p /config && \
-mkdir -p /config/extensions && \
-mkdir -p /downloads && \
 echo "############ Installing gPodder ##################" && \
 apt-get install -y -q gpodder && \
 apt-get clean
 
 COPY startapp.sh /startapp.sh
 
-COPY extensions/ /config/extensions/
+COPY root/ /
 
 #########################################
 ##           PORTS AND VOLUMES         ##
 #########################################
 
-VOLUME ["/downloads", "/config", ]
+VOLUME ["/downloads", "/config"]
 
 EXPOSE 8080 3389
