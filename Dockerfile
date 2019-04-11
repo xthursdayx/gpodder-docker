@@ -69,7 +69,7 @@ mkdir -p /config/extensions && \
 chown -R nobody:users /config && \
 chmod -R g+rw /config
 	
-COPY startapp.sh /startapp.sh
+ADD startapp.sh /startapp.sh
 
 COPY root/ /
 
