@@ -24,7 +24,7 @@ ENV HEIGHT=720
 ENV GPODDER_HOME /config
 
 # gPodder extensions directory
-ENV GPODDER_EXTENSIONS /config/extensions
+# ENV GPODDER_EXTENSIONS /config/extensions
 
 # gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
@@ -65,7 +65,10 @@ RUN \
 echo "############ Installing gPodder ##################" && \
 apt-get install -y -q gpodder && \
 apt-get clean
-
+mkdir -p /config/extensions
+chown -R nobody:users /config
+chmod -R g+rw /config
+	
 COPY startapp.sh /startapp.sh
 
 COPY root/ /
@@ -74,6 +77,6 @@ COPY root/ /
 ##           PORTS AND VOLUMES         ##
 #########################################
 
-VOLUME ["/downloads", "/config"]
+VOLUME ["/downloads","$GPODDER_HOME","GPODDER_HOME/extensions"]
 
 EXPOSE 8080 3389
