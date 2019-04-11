@@ -24,7 +24,7 @@ ENV HEIGHT=720
 ENV GPODDER_HOME /config
 
 # gPodder extensions directory
-# ENV GPODDER_EXTENSIONS /config/extensions
+ENV GPODDER_EXTENSIONS /config/extensions
 
 # gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
@@ -71,7 +71,7 @@ chmod -R g+rw /config
 	
 ADD startapp.sh /startapp.sh
 
-COPY root/ /
+COPY extensions/ /config/extensions/
 
 #########################################
 ##           PORTS AND VOLUMES         ##
