@@ -68,10 +68,8 @@ apt-get clean && \
 mkdir -p /config/extensions && \
 chown -R nobody:users /config && \
 chmod -R g+rw /config
-	
-ADD startapp.sh /startapp.sh
 
-COPY extensions/ /config/extensions/
+COPY root/ /
 
 #########################################
 ##           PORTS AND VOLUMES         ##
