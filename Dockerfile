@@ -1,7 +1,6 @@
 #via https://github.com/linuxserver/dockergui
 # Builds a docker gui image
-#FROM hurricane/dockergui:xvnc
-FROM hurricane/dockergui:x11rdp1.3
+FROM linuxserver/docker-baseimage-guacgui
 
 MAINTAINER xthursdayx
 
@@ -32,6 +31,9 @@ ENV GPODDER_DOWNLOAD_DIR /downloads
 # X11 Display
 ENV DISPLAY=:1
 
+# Timezone
+ENV TZ=America/New_York
+
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
@@ -39,24 +41,30 @@ CMD ["/sbin/my_init"]
 ##    REPOSITORIES AND DEPENDENCIES    ##
 #########################################
 RUN \
-echo 'deb http://archive.ubuntu.com/ubuntu trusty main universe restricted' > /etc/apt/sources.list && \
-echo 'deb http://archive.ubuntu.com/ubuntu trusty-updates main universe restricted' >> /etc/apt/sources.list && \
+echo 'deb http://archive.ubuntu.com/ubuntu bionic main universe restricted' > /etc/apt/sources.list && \
+echo 'deb http://archive.ubuntu.com/ubuntu bionic-updates main universe restricted' >> /etc/apt/sources.list && \
 echo "############ Installing packages needed for app ##################" && \
 export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
 apt-get update -y && \
 apt-get install -y -q \
     ca-certificates \
     dbus-x11 \
-    git \
+	default-dbus-session-bus \
     gir1.2-gtk-3.0 \
     gir1.2-webkit2-3.0 \
+	gir1.2-ayatanaappindicator3-0.1 \
     libgtk-3-dev \
+	python3 \
+	python3-cairo \
     python3-dbus \
+	python3-eyed3 \
     python3-gi \
     python3-gi-cairo \
-    python-html5lib \
-    python-mutagen \
-    python-eyed3 
+    python3-html5lib \
+	python3-mutagen \
+	python3-mygpoclient \
+	python3-podcastparser \
+	python3-simplejson 
 
 #########################################
 ##            INSTALL APP              ##
@@ -68,8 +76,8 @@ apt-get clean && \
 mkdir -p /config/extensions && \
 chown -R nobody:users /config && \
 chmod -R g+rw /config
-
-COPY root/ /
+	
+COPY startapp.sh /startapp.sh
 
 #########################################
 ##           PORTS AND VOLUMES         ##
