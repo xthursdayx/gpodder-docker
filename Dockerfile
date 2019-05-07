@@ -73,7 +73,7 @@ RUN \
 echo "############ Installing gPodder ##################" && \
 apt-get install -y -q gpodder && \
 apt-get clean && \
-mkdir -p /config/extensions && \
+mkdir -p /config/extensions
 
 COPY /usr/share/gpodder/extensions/ /config/extensions/
 
@@ -87,6 +87,6 @@ COPY startapp.sh /startapp.sh
 ##           PORTS AND VOLUMES         ##
 #########################################
 
-VOLUME ["/downloads","$GPODDER_HOME","GPODDER_HOME/extensions"]
+VOLUME ["/downloads","/config"]
 
 EXPOSE 8080 3389
