@@ -1,6 +1,6 @@
 #via https://github.com/linuxserver/dockergui
 # Builds a docker gui image
-FROM linuxserver/docker-baseimage-guacgui
+FROM lsiobase/guacgui
 
 MAINTAINER xthursdayx
 
