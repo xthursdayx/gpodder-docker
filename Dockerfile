@@ -8,6 +8,8 @@ MAINTAINER xthursdayx
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # User/Group ID gPodder will be executed as - default are 99 and 100
 ENV USER_ID=99
 ENV GROUP_ID=100
@@ -44,7 +46,6 @@ RUN \
 echo 'deb http://archive.ubuntu.com/ubuntu bionic main universe restricted' > /etc/apt/sources.list && \
 echo 'deb http://archive.ubuntu.com/ubuntu bionic-updates main universe restricted' >> /etc/apt/sources.list && \
 echo "############ Installing packages needed for app ##################" && \
-export DEBCONF_NONINTERACTIVE_SEEN=true DEBIAN_FRONTEND=noninteractive && \
 apt-get update -y && \
 apt-get install -y -q \
     ca-certificates \
