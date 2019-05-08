@@ -51,7 +51,6 @@ apt-get install -y -q \
     dbus-x11 \
 	default-dbus-session-bus \
     gir1.2-gtk-3.0 \
-    gir1.2-webkit2-3.0 \
 	gir1.2-ayatanaappindicator3-0.1 \
     libgtk-3-dev \
 	python3 \
