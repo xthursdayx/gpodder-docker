@@ -37,7 +37,7 @@ ENV DISPLAY=:1
 ENV TZ=America/New_York
 
 # Use baseimage-docker's init system
-CMD ["/sbin/my_init"]
+#CMD ["/sbin/my_init"]
 
 #########################################
 ##    REPOSITORIES AND DEPENDENCIES    ##
