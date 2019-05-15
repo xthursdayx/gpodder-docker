@@ -10,9 +10,9 @@ MAINTAINER xthursdayx
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# User/Group ID gPodder will be executed as - default are 99 and 100
-ENV USER_ID=99
-ENV GROUP_ID=100
+# User/Group ID gPodder will be executed as - default are 1000 and 1000
+ENV USER_ID=1000
+ENV GROUP_ID=1000
 
 # App Name
 ENV APP_NAME="gPodder"
@@ -78,7 +78,7 @@ mkdir -p /config/extensions
 #COPY /usr/share/gpodder/extensions/ /config/extensions/
 
 RUN \
-chown -R nobody:users /config && \
+chown -R abc:abc /config && \
 chmod -R g+rw /config
 	
 COPY startapp.sh /startapp.sh
