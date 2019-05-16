@@ -31,7 +31,7 @@ ENV GPODDER_EXTENSIONS /config/extensions
 ENV GPODDER_DOWNLOAD_DIR /downloads
 
 # X11 Display
-ENV DISPLAY=:1
+# ENV DISPLAY=:1
 
 # Timezone
 ENV TZ=America/New_York
