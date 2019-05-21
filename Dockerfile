@@ -29,8 +29,6 @@ ENV TZ=America/New_York
 ##    REPOSITORIES AND DEPENDENCIES    ##
 #########################################
 RUN \
-echo 'deb http://archive.ubuntu.com/ubuntu bionic main universe restricted' >> /etc/apt/sources.list && \
-echo 'deb http://archive.ubuntu.com/ubuntu bionic-updates main universe restricted' >> /etc/apt/sources.list && \
 echo "############ Installing packages needed for app ##################" && \
 apt-get update -y && \
 apt-get install -y -q \
