@@ -40,17 +40,17 @@ apt-get install -y -q \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
     libgtk-3-dev \
-	python3 \
-	python3-cairo \
-	python3-dbus \
-	python3-eyed3 \
-	python3-gi \
-	python3-gi-cairo \
-	python3-html5lib \
-	python3-mutagen \
-	python3-mygpoclient \
-	python3-podcastparser \
-	python3-simplejson 
+    python3 \
+    python3-cairo \
+    python3-dbus \
+    python3-eyed3 \
+    python3-gi \
+    python3-gi-cairo \
+    python3-html5lib \
+    python3-mutagen \
+    python3-mygpoclient \
+    python3-podcastparser \
+    python3-simplejson 
 
 #########################################
 ##            INSTALL APP              ##
