@@ -36,17 +36,17 @@ apt-get update -y && \
 apt-get install -y -q \
     ca-certificates \
     dbus-x11 \
-	default-dbus-session-bus \
+    default-dbus-session-bus \
     gir1.2-gtk-3.0 \
-	gir1.2-ayatanaappindicator3-0.1 \
+    gir1.2-ayatanaappindicator3-0.1 \
     libgtk-3-dev \
 	python3 \
 	python3-cairo \
-    python3-dbus \
+	python3-dbus \
 	python3-eyed3 \
-    python3-gi \
-    python3-gi-cairo \
-    python3-html5lib \
+	python3-gi \
+	python3-gi-cairo \
+	python3-html5lib \
 	python3-mutagen \
 	python3-mygpoclient \
 	python3-podcastparser \
