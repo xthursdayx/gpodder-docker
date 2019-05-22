@@ -1,37 +1,16 @@
-#via https://github.com/linuxserver/dockergui
-# Builds a docker gui image
 FROM lsiobase/guacgui
 
 LABEL maintainer="xthursdayx"
 
-#########################################
-##        ENVIRONMENTAL CONFIG         ##
-#########################################
-
-ARG DEBIAN_FRONTEND=noninteractive
-
-# App Name
-ENV APP_NAME="gPodder"
-
-# gPodder database and settings files
+ENV APPNAME="gPodder"
 ENV GPODDER_HOME /config
-
-# gPodder extensions directory
 ENV GPODDER_EXTENSIONS /config/extensions
-
-# gPodder downloads directory
 ENV GPODDER_DOWNLOAD_DIR /downloads
 
-# Timezone
-ENV TZ=America/New_York
-
-#########################################
-##    REPOSITORIES AND DEPENDENCIES    ##
-#########################################
 RUN \
-echo "############ Installing packages needed for app ##################" && \
-apt-get update -y && \
-apt-get install -y -q \
+echo "**** Installing dep packages ****" && \
+apt-get update && \
+apt-get install -yq --no-install-recommends \
     ca-certificates \
     dbus-x11 \
     default-dbus-session-bus \
@@ -48,28 +27,18 @@ apt-get install -y -q \
     python3-mutagen \
     python3-mygpoclient \
     python3-podcastparser \
-    python3-simplejson 
-
-#########################################
-##            INSTALL APP              ##
-#########################################
-RUN \
+    python3-simplejson \
+	x11-apps && \
 echo "############ Installing gPodder ##################" && \
-apt-get install -y -q gpodder && \
+apt-get install -yq gpodder && \
+mkdir -p /config/extensions && \
 apt-get clean && \
-mkdir -p /config/extensions
-
-#COPY /usr/share/gpodder/extensions/ /config/extensions/
-
-RUN \
-chown -R 911:911 /config && \
-chmod -R g+rw /config
+rm -rf \
+    /tmp/* \
+    /var/lib/apt/lists/* \
+    /var/tmp/*
 	
 COPY startapp.sh /startapp.sh
-
-#########################################
-##           PORTS AND VOLUMES         ##
-#########################################
 
 VOLUME ["/downloads","/config"]
 
