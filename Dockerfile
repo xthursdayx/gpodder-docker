@@ -13,9 +13,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
 echo "**** Installing dep packages ****" && \
 apt-get update && \
-apt-get install -yq \
+apt-get install -y \
     ca-certificates \
-    dbus-x11 \
+	dbus \
+#    dbus-x11 \
     default-dbus-session-bus \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
@@ -32,16 +33,16 @@ apt-get install -yq \
     python3-podcastparser \
     python3-simplejson && \
 echo "**** Installing gPodder ****" && \
-apt-get install -yq gpodder && \
-mkdir -p /config/extensions && \
-cp -a /usr/share/gpodder/extensions/. /config/extensions/ && \
+apt-get install -y gpodder && \
+# mkdir -p /config/extensions && \
+# cp -a /usr/share/gpodder/extensions/. /config/extensions/ && \
 apt-get clean && \
 rm -rf \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
 	
-COPY /root /
+COPY root/ /
 
 VOLUME ["/downloads","/config"]
 
