@@ -21,6 +21,7 @@ apt-get install -y \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
     libgtk-3-dev \
+    nano \
     python3 \
     python3-cairo \
     python3-dbus \
