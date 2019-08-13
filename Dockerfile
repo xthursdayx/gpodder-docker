@@ -1,14 +1,9 @@
 FROM lsiobase/guacgui
 
+ARG GPODDER_RELEASE
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder"
-ENV GPODDER_HOME /config
-ENV GPODDER_EXTENSIONS /config/extensions
-ENV GPODDER_DOWNLOAD_DIR /downloads
-ENV DISPLAY=:1
-
-ARG DEBIAN_FRONTEND=noninteractive
 
 RUN \
 echo "**** Installing dep packages ****" && \
@@ -16,12 +11,11 @@ apt-get update && \
 apt-get install -y \
     ca-certificates \
 	dbus \
-#    dbus-x11 \
     default-dbus-session-bus \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
+	jq \
     libgtk-3-dev \
-    nano \
     python3 \
     python3-cairo \
     python3-dbus \
@@ -32,11 +26,26 @@ apt-get install -y \
     python3-mutagen \
     python3-mygpoclient \
     python3-podcastparser \
-    python3-simplejson && \
+    python3-simplejson \
+	wget && \
 echo "**** Installing gPodder ****" && \
+mkdir -p \
+       /config \
+	   /config/extensions && \
 apt-get install -y gpodder && \
-mkdir -p /config/extensions && \
+if [ -z ${GPODDER_RELEASE+x} ]; then \
+       GPODDER_RELEASE=$(curl -sX GET "https://api.github.com/repos/gpodder/gpodder/releases/latest" \
+       | jq -r .tag_name); \
+fi && \
+GPODDER_URL="https://codeload.github.com/gpodder/gpodder/tar.gz/${GPODDER_RELEASE}" && \
+curl -o \
+       /tmp/gpodder-tarball.tar.gz \
+       "$GPODDER_URL" && \
+tar xvzf /tmp/gpodder-tarball.tar.gz -C \
+       /tmp/ && \
+cp -a /tmp/gpodder-${GPODDER_RELEASE}/share/gpodder/extensions/. /config/extensions
 echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
+echo "GPODDER_EXTENSIONS=/config/extensions" >> ~/.pam_environment && \
 apt-get clean && \
 rm -rf \
     /tmp/* \
@@ -44,7 +53,3 @@ rm -rf \
     /var/tmp/*
 	
 COPY root/ /
-
-VOLUME ["/downloads","/config"]
-
-EXPOSE 8080 3389

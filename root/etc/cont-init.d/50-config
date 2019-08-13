@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+# make our folders
+mkdir -p /config/.config/gPodder
+
+# set webserver port on first install
+[[ ! -f /config/.config/gPodder/server-config.txt ]] && \
+  echo "port 8080" > /config/.config/gPodder/server-config.txt
+
+# permissions
+chown -R abc:abc \
+	/config \
+	/config/extensions \
+	/downloads 
