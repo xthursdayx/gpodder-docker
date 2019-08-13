@@ -43,7 +43,7 @@ curl -o \
        "$GPODDER_URL" && \
 tar xvzf /tmp/gpodder-tarball.tar.gz -C \
        /tmp/ && \
-cp -a /tmp/gpodder-${GPODDER_RELEASE}/share/gpodder/extensions/. /config/extensions
+cp -a /tmp/gpodder-${GPODDER_RELEASE}/share/gpodder/extensions/. /config/extensions && \
 echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
 echo "GPODDER_EXTENSIONS=/config/extensions" >> ~/.pam_environment && \
 apt-get clean && \
