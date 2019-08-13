@@ -1,6 +1,5 @@
 FROM lsiobase/guacgui
 
-ARG GPODDER_RELEASE
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder"
@@ -33,19 +32,7 @@ mkdir -p \
        /config \
 	   /config/extensions && \
 apt-get install -y gpodder && \
-if [ -z ${GPODDER_RELEASE+x} ]; then \
-       GPODDER_RELEASE=$(curl -sX GET "https://api.github.com/repos/gpodder/gpodder/releases/latest" \
-       | jq -r .tag_name); \
-fi && \
-GPODDER_URL="https://codeload.github.com/gpodder/gpodder/tar.gz/${GPODDER_RELEASE}" && \
-curl -o \
-       /tmp/gpodder-tarball.tar.gz \
-       "$GPODDER_URL" && \
-tar xvzf /tmp/gpodder-tarball.tar.gz -C \
-       /tmp/ && \
-cp -a /tmp/gpodder-${GPODDER_RELEASE}/share/gpodder/extensions/. /config/extensions && \
 echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
-echo "GPODDER_EXTENSIONS=/config/extensions" >> ~/.pam_environment && \
 apt-get clean && \
 rm -rf \
     /tmp/* \

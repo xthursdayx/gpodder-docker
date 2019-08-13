@@ -8,7 +8,7 @@ if { s6-svwait -t 10000 -U /var/run/s6/services/openbox/ }
 
 # Drop privileges and set env
 s6-setuidgid abc
-s6-env DISPLAY=:1 HOME=/config GPODDER_DOWNLOAD_DIR=/downloads GPODDER_EXTENSIONS=/config/extensions
+s6-env DISPLAY=:1 HOME=/config GPODDER_DOWNLOAD_DIR=/downloads
 
 # Execute gPodder
 /usr/bin/gpodder

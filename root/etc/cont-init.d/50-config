@@ -10,5 +10,4 @@ mkdir -p /config/.config/gPodder
 # permissions
 chown -R abc:abc \
 	/config \
-	/config/extensions \
 	/downloads 
