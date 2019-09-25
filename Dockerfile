@@ -28,9 +28,6 @@ apt-get install -y \
     python3-simplejson \
 	wget && \
 echo "**** Installing gPodder ****" && \
-mkdir -p \
-       /config \
-	   /config/extensions && \
 apt-get install -y gpodder && \
 echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
 apt-get clean && \
@@ -40,3 +37,6 @@ rm -rf \
     /var/tmp/*
 	
 COPY root/ /
+
+VOLUME /config
+EXPOSE 3389 8080

@@ -4,7 +4,9 @@
 
 # gPodder Docker
 
-A dockerized version of the [gPodder](https://gpodder.github.io/) podcatcher with a built-in browser-based GUI.
+A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client with a built-in browser-based GUI.
+
+[gPodder](https://gpodder.github.io/) is a simple, open source podcast client written in Python using GTK+. In development since 2005 with a proven, mature codebase.
 
 ### Install:
 
@@ -32,7 +34,7 @@ docker run -d \
 - Replace "/path/to/downloads" with your chosen downloads folder locaiton. This is the directory gPodder will download your podcasts to. 
 - Replace <port> with your choice of ports.
 - You can change the screen resolution by modifying the WIDTH and HEIGHT variables.
-- Replace GUAC_USER with the user name of your choice and GUAC_PASS with the md5 hash of your chosen password.
-- Ctrl-Alt-Shft will bring up the menu that allows changing input options, as well as controlling the clipboard
+- Replace GUAC_USER with the user name of your choice and GUAC_PASS with the md5 hash of your chosen password. You can do this by running the command: `echo -n <your_password> | md5sum`
+- Ctrl-Alt-Shft will bring up the menu that allows changing input options, as well as controlling the clipboard.
 
 To access the GUI, point your web browser to http://SERVERIP:8080/#/client/c/gPodder (Replace SERVERIP with the correct value),
