@@ -4,7 +4,7 @@
 
 # gPodder Docker
 
-A dockerized version of [gPodder](https://gpodder.github.io/) with a built-in browser-based GUI.
+A dockerized version of the [gPodder](https://gpodder.github.io/) podcatcher with a built-in browser-based GUI.
 
 ### Install:
 
