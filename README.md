@@ -31,7 +31,7 @@ docker run -d \
 ### Setup Instructions:
 
 - Replace "/path/to/config" with your choice of folder location. That is where all of your configuration and database files will reside, so you won't lose data when you update, reinstall, etc.
-- Replace "/path/to/downloads" with your chosen downloads folder locaiton. This is the directory gPodder will download your podcasts to. 
+- Replace "/path/to/downloads" with your chosen downloads folder location. This is the directory gPodder will download your podcasts to. 
 - Replace <port> with your choice of ports.
 - You can change the screen resolution by modifying the WIDTH and HEIGHT variables.
 - Replace GUAC_USER with the user name of your choice and GUAC_PASS with the md5 hash of your chosen password. You can do this by running the command: `echo -n <your_password> | md5sum`
