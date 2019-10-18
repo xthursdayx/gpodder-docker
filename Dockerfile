@@ -3,6 +3,8 @@ FROM lsiobase/guacgui
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder"
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 RUN \
 echo "**** Installing dep packages ****" && \
