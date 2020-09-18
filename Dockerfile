@@ -17,6 +17,7 @@ apt-get install -y \
     jq \
     libgtk-3-dev \
     locales \
+    locales-all \
     python3 \
     python3-cairo \
     python3-dbus \
@@ -32,8 +33,6 @@ apt-get install -y \
 echo "**** Installing gPodder ****" && \
 apt-get install -y gpodder && \
 echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
-sed -i 's/# \(en_US\.UTF-8 .*\)/\1/' /etc/locale.gen && \
-locale-gen en_US.UTF-8 && \
 apt-get clean && \
 rm -rf \
     /tmp/* \
@@ -41,7 +40,7 @@ rm -rf \
     /var/tmp/*
     
 ENV LANG en_US.UTF-8 \
-    LANGUAGE=en_US \
+    LANGUAGE=en_US.UTF-8 \
     LC_ALL en_US.UTF-8
 	
 COPY root/ /
