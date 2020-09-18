@@ -2,9 +2,7 @@ FROM lsiobase/guacgui
 
 LABEL maintainer="xthursdayx"
 
-ENV APPNAME="gPodder"
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV APPNAME="gPodder" 
 
 RUN \
 echo "**** Installing dep packages ****" && \
@@ -18,6 +16,7 @@ apt-get install -y \
     gir1.2-ayatanaappindicator3-0.1 \
     jq \
     libgtk-3-dev \
+    locales \
     python3 \
     python3-cairo \
     python3-dbus \
@@ -33,11 +32,17 @@ apt-get install -y \
 echo "**** Installing gPodder ****" && \
 apt-get install -y gpodder && \
 echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
+sed -i 's/# \(en_US\.UTF-8 .*\)/\1/' /etc/locale.gen && \
+locale-gen en_US.UTF-8 && \
 apt-get clean && \
 rm -rf \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
+    
+ENV LANG en_US.UTF-8 \
+    LANGUAGE=en_US \
+    LC_ALL en_US.UTF-8
 	
 COPY root/ /
 
