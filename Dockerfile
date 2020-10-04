@@ -15,6 +15,8 @@ RUN \
     ffmpeg \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
+    git \
+    intltool \
     jq \
     libgtk-3-dev \
     locales \
@@ -30,9 +32,7 @@ RUN \
     python3-mygpoclient \
     python3-podcastparser \
     python3-simplejson \
-    wget \
-    git \
-    intltool
+    wget
 
 RUN echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
