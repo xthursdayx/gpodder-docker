@@ -25,7 +25,7 @@ docker run -d \
   -p <port>:8080 \
   -p <port>:3389 \
   --restart unless-stopped \
-  xthursdayx/docker-gpodder
+  xthursdayx/gpodder-docker
  ```` 
   
 ### Setup Instructions:
