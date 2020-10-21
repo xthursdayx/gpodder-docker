@@ -17,9 +17,9 @@ docker run -d \
   --name="gPodder" \
   -e HEIGHT="720" \
   -e WIDTH="1280" \
-  -e TZ="America/New_York"
-  -e GUAC_USER="Username for the gPodder desktop GUI"
-  -e GUAC_PASS="md5 hash for gPodder desktop GUI" 
+  -e TZ="America/New_York" \
+  -e GUAC_USER="Username for the gPodder desktop GUI" \
+  -e GUAC_PASS="md5 hash for gPodder desktop GUI" \
   -v /path/to/config:/config:rw \
   -v /path/to/downloads:/downloads:rw \
   -p <port>:8080 \
