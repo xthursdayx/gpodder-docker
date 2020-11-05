@@ -21,6 +21,7 @@ RUN \
     libgtk-3-dev \
     locales \
     locales-all \
+    normalize-audio \
     python3 \
     python3-cairo \
     python3-dbus \
