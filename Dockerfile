@@ -3,7 +3,7 @@ FROM lsiobase/guacgui
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder" 
-ENV GPODDER_TAG="3.10.16"
+ENV GPODDER_TAG="3.10.17"
 
 RUN \
     echo "**** Installing dep packages ****" && \
