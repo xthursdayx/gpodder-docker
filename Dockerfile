@@ -13,6 +13,7 @@ RUN \
     dbus \
     default-dbus-session-bus \
     ffmpeg \
+    fuse \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
     git \
