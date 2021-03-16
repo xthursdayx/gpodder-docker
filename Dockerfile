@@ -35,7 +35,9 @@ RUN \
     python3-pip \
     python3-podcastparser \
     python3-simplejson \
-    wget && \
+    wget \
+    xfonts-75dpi \
+    xfonts-100dpi && \
     pip3 install youtube_dl
 
 RUN echo "**** Installing gPodder ****" && \
