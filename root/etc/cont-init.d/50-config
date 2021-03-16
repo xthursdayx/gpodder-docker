@@ -8,7 +8,7 @@ mkdir -p /config/.config/gPodder
   echo "port 8080" > /config/.config/gPodder/server-config.txt
   
 # Creat FUSE group and add user
-sudo groupadd fuse
+groupadd fuse
 usermod -a -G fuse abc
 
 # permissions
