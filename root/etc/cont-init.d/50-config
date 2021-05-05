@@ -6,10 +6,6 @@ mkdir -p /config/.config/gPodder
 # set webserver port on first install
 [[ ! -f /config/.config/gPodder/server-config.txt ]] && \
   echo "port 8080" > /config/.config/gPodder/server-config.txt
-  
-# Creat FUSE group and add user
-groupadd fuse
-usermod -a -G fuse abc
 
 # permissions
 chown -R abc:abc \
