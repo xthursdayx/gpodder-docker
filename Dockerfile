@@ -3,7 +3,7 @@ FROM lsiobase/guacgui
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder" 
-ENV GPODDER_TAG="3.10.17"
+ENV GPODDER_TAG="3.10.19"
 
 RUN \
     echo "**** Installing dep packages ****" && \
@@ -13,7 +13,6 @@ RUN \
     dbus \
     default-dbus-session-bus \
     ffmpeg \
-    fuse \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
     git \
