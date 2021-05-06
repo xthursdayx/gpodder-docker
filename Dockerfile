@@ -37,7 +37,8 @@ RUN \
     wget \
     xfonts-75dpi \
     xfonts-100dpi && \
-    pip3 install youtube_dl
+    pip3 install youtube_dl \
+    requests
 
 RUN echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
