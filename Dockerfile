@@ -45,7 +45,7 @@ RUN echo "**** Installing gPodder ****" && \
     cd gpodder && \
     git checkout $GPODDER_TAG && \
     echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
-    chown -R /gpodder abc:abc
+    chown -R abc:abc /gpodder
 
 RUN apt-get clean && \
     rm -rf \
