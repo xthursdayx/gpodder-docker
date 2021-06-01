@@ -18,7 +18,7 @@ RUN \
     git \
     intltool \
     jq \
-    libgtk-3-dev \
+    libgtk-3-0 \
     locales \
     locales-all \
     normalize-audio \
