@@ -8,7 +8,7 @@ ENV GPODDER_TAG="3.10.19"
 RUN \
     echo "**** Installing dep packages ****" && \
     apt-get update && \
-    apt-get install -y \
+    apt-get install -qy --no-install-recommends \
     ca-certificates \
     dbus \
     default-dbus-session-bus \
@@ -46,7 +46,7 @@ RUN echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
     cd gpodder && \
     git checkout $GPODDER_TAG && \
-    echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment && \
+    echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment
 
 RUN apt-get clean && \
     rm -rf \
