@@ -15,7 +15,9 @@ RUN \
     ffmpeg \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
+    gir1.2-webkit2-4.0 \
     git \
+    help2man \
     intltool \
     jq \
     libgtk-3-0 \
