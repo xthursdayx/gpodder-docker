@@ -5,9 +5,8 @@ fdmove -c 2 1
 
 # Wait until openbox is running
 if { s6-svwait -t 10000 -U /var/run/s6/services/openbox/ }
-
-# Resolve freerdp directory plugins issues 
-ln -s /usr/local/lib/freerdp/guac* /usr/lib/x86_64-linux-gnu/freerdp/
+# Wait until guacamole is running
+if { s6-svwait -t 10000 -U /var/run/s6/services/guacamole/ }
 
 # Drop privileges and set env
 s6-setuidgid abc
