@@ -37,4 +37,8 @@ docker run -d \
 - Replace GUAC_USER with the user name of your choice and GUAC_PASS with the md5 hash of your chosen password. You can do this by running the command: `echo -n <your_password> | md5sum`
 - Ctrl-Alt-Shft will bring up the menu that allows changing input options, as well as controlling the clipboard.
 
-To access the GUI, point your web browser to http://SERVERIP:8080/#/client/c/gPodder (Replace SERVERIP with the correct value),
+To access the GUI, point your web browser to http://SERVERIP:8080/#/client/c/gPodder (Replace SERVERIP with the correct value).
+
+If you appreciate my work please consider buying me a coffee, cheers! 😁
+
+<a href="https://www.buymeacoffee.com/xthursdayx"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" alt="Donate" style="width:74px;height:auto;" width="74"></a>

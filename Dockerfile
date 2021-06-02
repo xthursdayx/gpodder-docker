@@ -3,22 +3,24 @@ FROM lsiobase/guacgui
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder" 
-ENV GPODDER_TAG="3.10.17"
+ENV GPODDER_TAG="3.10.19"
 
 RUN \
     echo "**** Installing dep packages ****" && \
     apt-get update && \
-    apt-get install -y \
+    apt-get install -qy --no-install-recommends \
     ca-certificates \
     dbus \
     default-dbus-session-bus \
     ffmpeg \
     gir1.2-gtk-3.0 \
     gir1.2-ayatanaappindicator3-0.1 \
+    gir1.2-webkit2-4.0 \
     git \
+    help2man \
     intltool \
     jq \
-    libgtk-3-dev \
+    libgtk-3-0 \
     locales \
     locales-all \
     normalize-audio \
@@ -34,8 +36,11 @@ RUN \
     python3-pip \
     python3-podcastparser \
     python3-simplejson \
-    wget && \
-    pip3 install youtube_dl
+    wget \
+    xfonts-75dpi \
+    xfonts-100dpi && \
+    pip3 install youtube_dl \
+    requests
 
 RUN echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
