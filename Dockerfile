@@ -20,7 +20,6 @@ RUN \
     help2man \
     intltool \
     jq \
-    libfreerdp-plugins-standard \
     libgtk-3-0 \
     locales \
     locales-all \
