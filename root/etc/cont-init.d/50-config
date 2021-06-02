@@ -7,6 +7,14 @@ mkdir -p /config/.config/gPodder
 [[ ! -f /config/.config/gPodder/server-config.txt ]] && \
   echo "port 8080" > /config/.config/gPodder/server-config.txt
 
+# Resolve freerdp directory plugins issues
+[[ ! -f /usr/lib/x86_64-linux-gnu/freerdp/guacsnd-client.so ]] && \
+  ln -sv /usr/local/lib/freerdp/guacsnd-client.so /usr/lib/x86_64-linux-gnu/freerdp
+[[ ! -f /usr/lib/x86_64-linux-gnu/freerdp/libguac.so ]] && \
+  ln -sv /usr/local/lib/freerdp/libguac.so /usr/lib/x86_64-linux-gnu/freerdp
+[[ ! -f /usr/lib/x86_64-linux-gnu/freerdp/guacdr-client.so ]] && \
+  ln -sv /usr/local/lib/freerdp/guacdr-client.so /usr/lib/x86_64-linux-gnu/freerdp
+
 # permissions
 chown -R abc:abc \
 	/config \
