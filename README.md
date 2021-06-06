@@ -14,7 +14,7 @@ Here are some examples to help you get started creating a container.
 
 ### docker cli
 
-```
+```bash
 docker run -d \
   --name=gPodder \
   -e PUID=99 \
@@ -34,7 +34,7 @@ docker run -d \
 
 Compatible with docker-compose v2 schemas.
 
-```
+```yaml
 ---
 version: "2"
 services:
