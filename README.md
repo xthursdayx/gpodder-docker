@@ -14,7 +14,7 @@ Here are some examples to help you get started creating a container.
 
 ### docker cli
 
-```bash
+```
 docker run -d \
   --name=gPodder \
   -e PUID=99 \
@@ -34,7 +34,7 @@ docker run -d \
 
 Compatible with docker-compose v2 schemas.
 
-```yaml
+```
 ---
 version: "2"
 services:
@@ -87,7 +87,7 @@ In this instance `PUID=99` and `PGID=100`, to find yours using the following com
 
 ### Authentication
 
-If you want to use authentication, replace `GUAC_USER` with the user name of your choice and `GUAC_PASS` with the md5 hash of your chosen password. You can do this by running the command: 
+If you want to use authentication, specify `GUAC_USER` with the user name of your choice and `GUAC_PASS` with the md5 hash of your chosen password. You can do this by running the command: 
 ```
 echo -n password | openssl md5
 ```
