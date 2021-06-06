@@ -15,11 +15,11 @@ You can run this docker with the following command:
 ````
 docker run -d \
   --name="gPodder" \
-  -e HEIGHT="720" \
-  -e WIDTH="1280" \
+  -e PUID=1000 \
+  -e PGID=1000 \
   -e TZ="America/New_York" \
-  -e GUAC_USER="Username for the gPodder desktop GUI" \
-  -e GUAC_PASS="md5 hash for gPodder desktop GUI" \
+  -e GUAC_USER="Username for the gPodder desktop GUI" `#optional` \
+  -e GUAC_PASS="md5 hash for gPodder desktop GUI" `#optional` \
   -v /path/to/config:/config:rw \
   -v /path/to/downloads:/downloads:rw \
   -p <port>:8080 \
@@ -28,16 +28,14 @@ docker run -d \
   xthursdayx/gpodder-docker
  ```` 
   
-### Setup Instructions:
+### Setup and Usage Instructions:
 
-- Replace "/path/to/config" with your choice of folder location. That is where all of your configuration and database files will reside, so you won't lose data when you update, reinstall, etc.
+- Replace "/path/to/config" with your choice of folder location. This directory is where all of gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc.
 - Replace "/path/to/downloads" with your chosen downloads folder location. This is the directory gPodder will download your podcasts to. 
-- Replace <port> with your choice of ports.
-- You can change the screen resolution by modifying the WIDTH and HEIGHT variables.
-- Replace GUAC_USER with the user name of your choice and GUAC_PASS with the md5 hash of your chosen password. You can do this by running the command: `echo -n <your_password> | md5sum`
+- Replace <port> with your choice of ports on your host machine.
+- If you want to use authentication, replace GUAC_USER with the user name of your choice and GUAC_PASS with the md5 hash of your chosen password. You can do this by running the command: `echo -n <your_password> | md5sum`. If GUAC_USER and GUAC_PASS are not set, there will be no authentication. Please beware this image is not hardened for internet usage. Use a reverse ssl proxy to increase security.
+- To access the GUI, point your web browser to http://SERVERIP:8080/#/client/c/gPodder (Replace SERVERIP with the correct value). To access gPodder via RDP use port 3389. 
 - Ctrl-Alt-Shft will bring up the menu that allows changing input options, as well as controlling the clipboard.
-
-To access the GUI, point your web browser to http://SERVERIP:8080/#/client/c/gPodder (Replace SERVERIP with the correct value).
 
 If you appreciate my work please consider buying me a coffee, cheers! 😁
 
