@@ -1,3 +1,5 @@
+FROM lsiobase/guacgui
+
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder" 
