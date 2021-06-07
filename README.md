@@ -67,7 +67,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=99` | for UserID - see below for more information. |
 | `-e PGID=100` | for GroupID - see below for more information. |
 | `-e TZ=America/New_York` | Specify a timezone to use, e.g. America/New_York. |
-| `-e GUAC_USER=abc` | Specify the username for guacamole's web interface. |
+| `-e GUAC_USER=abc` | Specify the username for Guacamole's web interface. |
 | `-e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72` | Specify the password's md5 hash for Guacamole's web interface. |
 | `-v /config` | Directory where gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc.|
 | `-v /downloads` | The directory gPodder will download your podcasts to. |
