@@ -68,7 +68,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PGID=100` | for GroupID - see below for more information. |
 | `-e TZ=America/New_York` | Specify a timezone to use, e.g. America/New_York. |
 | `-e GUAC_USER=abc` | Specify the username for Guacamole's web interface. |
-| `-e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72` | Specify the password's md5 hash for Guacamole's web interface. |
+| `-e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72` | Specify the password's MD5 hash for Guacamole's web interface. |
 | `-v /config` | Directory where gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc.|
 | `-v /downloads` | The directory gPodder will download your podcasts to. |
 
@@ -87,7 +87,7 @@ In this instance `PUID=99` and `PGID=100`, to find yours using the following com
 
 ### Authentication
 
-If you want to use authentication, specify `GUAC_USER` with the user name of your choice and `GUAC_PASS` with the md5 hash of your chosen password. You can do this by running the command: 
+If you want to use authentication, specify `GUAC_USER` with the user name of your choice and `GUAC_PASS` with the MD5 hash of your chosen password. You can do this by running the command: 
 ```
 echo -n password | openssl md5
 ```
