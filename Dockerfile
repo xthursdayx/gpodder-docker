@@ -9,6 +9,7 @@ RUN \
     echo "**** Installing dep packages ****" && \
     apt-get update && \
     apt-get install -qy --no-install-recommends \
+    at-spi2-core \
     ca-certificates \
     dbus \
     default-dbus-session-bus \
