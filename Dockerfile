@@ -8,9 +8,8 @@ ENV GPODDER_TAG="3.10.20"
 RUN \
     echo "**** Installing dep packages ****" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     at-spi2-core \
-    ca-certificates \
     dbus \
     default-dbus-session-bus \
     ffmpeg \
@@ -22,7 +21,6 @@ RUN \
     intltool \
     jq \
     libgtk-3-0 \
-    locales \
     locales-all \
     normalize-audio \
     python3 \
@@ -32,6 +30,7 @@ RUN \
     python3-gi-cairo \
     python3-pip \
     python3-simplejson \
+	python3-setuptools \
     wget \
     xfonts-75dpi \
     xfonts-100dpi
