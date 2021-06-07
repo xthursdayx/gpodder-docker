@@ -30,7 +30,7 @@ RUN \
     python3-gi-cairo \
     python3-pip \
     python3-simplejson \
-	python3-setuptools \
+    python3-setuptools \
     wget \
     xfonts-75dpi \
     xfonts-100dpi
