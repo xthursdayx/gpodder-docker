@@ -10,7 +10,7 @@ A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client
 
 ## Setup Instructions:
 
-Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://github.com/xthursdayx/docker-templates/blob/4ea8d69aef5f7ee89a9577b71e5ab73f61bfa6cb/gpodder.xml) in Community Apps.
+Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://raw. github.com/xthursdayx/docker-templates/blob/master/gpodder.xml) in Community Apps.
 
 ### docker cli
 
@@ -24,8 +24,8 @@ docker run -d \
   -e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72 `#optional` \
   -p 8080:8080 \
   -p 3389:3389 \
-  -v /path/to/config:/config:rw \
-  -v /path/to/downloads:/downloads:rw \
+  -v /path/to/config:/config \
+  -v /path/to/downloads:/downloads \
   --restart unless-stopped \
   xthursdayx/gpodder-docker
 ```
@@ -36,7 +36,7 @@ Compatible with docker-compose v2 schemas.
 
 ```yaml
 ---
-version: "2"
+version: "2.1"
 services:
   gpodder:
     image: xthursdayx/gpodder-docker
@@ -48,8 +48,8 @@ services:
       - GUAC_USER=abc #optional
       - GUAC_PASS=900150983cd24fb0d6963f7d28e17f72 #optional
     volumes:
-      - /path/to/config:/config \
-      - /path/to/downloads:/downloads \
+      - /path/to/config:/config
+      - /path/to/downloads:/downloads
     ports:
       - 8080:8080
       - 3389:3389
@@ -63,18 +63,18 @@ Container images are configured using parameters passed at runtime (such as thos
 | Parameter | Function |
 | :----: | --- |
 | `-p 8080` | HTTP access to the gPodder GUI. |
-| `-p 8080` | RDP access to the gPodder GUI. |
+| `-p 3389` | RDP access to the gPodder GUI. |
 | `-e PUID=99` | for UserID - see below for more information. |
 | `-e PGID=100` | for GroupID - see below for more information. |
 | `-e TZ=America/New_York` | Specify a timezone to use, e.g. America/New_York. |
 | `-e GUAC_USER=abc` | Specify the username for Guacamole's web interface. |
 | `-e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72` | Specify the password's MD5 hash for Guacamole's web interface. |
-| `-v /config` | Directory where gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc.|
+| `-v /config` | Directory where gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc. |
 | `-v /downloads` | The directory gPodder will download your podcasts to. |
 
 ### User / Group Identifiers
 
-When using volumes (`-v` flags) permissions issues can arise between the host OS and the container, you can avoid this by specifiying the user `PUID` and group `PGID`.
+When using volumes (`-v` flags) permissions issues can arise between the host OS and the container, you can avoid this by specifying the user `PUID` and group `PGID`.
 
 Ensure any mapped volume directories on your host machine are owned by the same user you specify and you will avoid any permissions issues.
 
@@ -105,6 +105,7 @@ To access the gPodder GUI, point your web browser to
 * You can access gPodder via RDP using port 3389. 
 
 You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift, which will allow you to changing input options and use remote copy/paste or an onscreen keyboard.
+
 
 If you appreciate my work please consider buying me a coffee, cheers! 😁
 
