@@ -10,7 +10,7 @@ A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client
 
 ## Setup Instructions:
 
-Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://raw. github.com/xthursdayx/docker-templates/blob/master/gpodder.xml) in Community Apps.
+Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://raw.githubusercontent.com/xthursdayx/docker-templates/master/gpodder.xml) in Community Apps.
 
 ### docker cli
 
