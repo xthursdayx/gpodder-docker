@@ -3,7 +3,8 @@ FROM lsiobase/guacgui
 LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder" 
-ENV GPODDER_TAG="3.10.20"
+
+ARG GPODDER_TAG="3.10.20"
 
 RUN \
     echo "**** Installing dep packages ****" && \
@@ -50,18 +51,13 @@ RUN \
 RUN echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
     cd gpodder && \
-    git checkout $GPODDER_TAG && \
-    echo "GPODDER_DOWNLOAD_DIR=/downloads" >> ~/.pam_environment
+    git checkout $GPODDER_TAG
 
 RUN apt-get clean && \
     rm -rf \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
-
-ENV LANG en_US.UTF-8 \
-    LANGUAGE en_US.UTF-8 \
-    LC_ALL en_US.UTF-8
 
 COPY root/ /
 
