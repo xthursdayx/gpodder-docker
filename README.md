@@ -4,6 +4,8 @@
 
 # gPodder Docker
 
+[![Docker Build and Publish](https://github.com/xthursdayx/gpodder-docker/actions/workflows/docker-build-and-publish.yml/badge.svg)](https://github.com/xthursdayx/gpodder-docker/actions/workflows/docker-build-and-publish.yml)
+
 A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client with a built-in browser-based GUI.
 
 [gPodder](https://gpodder.github.io/) is a simple, open source podcast client written in Python using GTK+. In development since 2005 with a proven, mature codebase.
