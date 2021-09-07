@@ -4,7 +4,7 @@ LABEL maintainer="xthursdayx"
 
 ENV APPNAME="gPodder" 
 
-ARG GPODDER_TAG="3.10.20"
+ARG GPODDER_TAG="3.10.21"
 
 RUN \
     echo "**** Installing dep packages ****" && \
