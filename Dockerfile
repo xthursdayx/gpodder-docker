@@ -28,6 +28,7 @@ RUN \
     ttf-freefont \
     webkit2gtk \
     ffmpeg \
+    ffmpeg-libs \
     jq && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     xfce4-pulseaudio-plugin && \
