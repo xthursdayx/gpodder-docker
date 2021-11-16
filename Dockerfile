@@ -1,10 +1,11 @@
-FROM lsiobase/guacgui
+FROM lsiobase/rdesktop-web:focal
 
-LABEL maintainer="xthursdayx"
-
+# set build labels
 ENV APPNAME="gPodder" 
-
+ARG BUILD_DATE
 ARG GPODDER_TAG="3.10.21"
+LABEL build_version="gPodder version:- ${GPODDER_TAG} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="xthursdayx"
 
 RUN \
     echo "**** Installing dep packages ****" && \
@@ -40,13 +41,13 @@ RUN \
     echo "**** Installing PyPI deps ****" && \
     pip3 install --no-cache-dir \
 	mygpoclient==1.8 \
-	podcastparser==0.6.6 \
-	requests[socks]==2.25.1 \
-	urllib3==1.26.5 \
+	podcastparser==0.6.8 \
+	requests[socks]==2.26.0 \
+	urllib3==1.26.7 \
 	html5lib==1.1 \
 	mutagen==1.45.1 \
-	eyed3 \
-	youtube_dl
+	eyed3==0.9.6 \
+	youtube_dl==2021.6.6
 
 RUN echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
@@ -59,10 +60,10 @@ RUN apt-get clean && \
     /var/lib/apt/lists/* \
     /var/tmp/*
 
-# set ENV
-ENV LC_ALL="c.UTF-8" \
-    LANGUAGE="c.UTF-8" \
-    LANG="c.UTF-8"
+
+ENV LC_ALL="C.UTF-8" \
+    LANGUAGE="C.UTF-8" \
+    LANG="C.UTF-8"
     
 COPY root/ /
 
