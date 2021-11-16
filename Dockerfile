@@ -59,6 +59,11 @@ RUN apt-get clean && \
     /var/lib/apt/lists/* \
     /var/tmp/*
 
+# set ENV
+ENV LC_ALL="c.UTF-8" \
+    LANGUAGE="c.UTF-8" \
+    LANG="c.UTF-8"
+    
 COPY root/ /
 
 VOLUME /config
