@@ -59,11 +59,6 @@ RUN apt-get clean && \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
-
-
-ENV LC_ALL="C.UTF-8" \
-    LANGUAGE="C.UTF-8" \
-    LANG="C.UTF-8"
     
 COPY root/ /
 
