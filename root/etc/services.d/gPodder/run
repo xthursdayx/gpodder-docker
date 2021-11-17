@@ -13,4 +13,4 @@ s6-setuidgid abc
 s6-env DISPLAY=:1 HOME=/config GPODDER_DOWNLOAD_DIR=/downloads LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8
 
 # Execute gPodder
-dbus-run-session /gpodder/bin/gpodder
+/gpodder/bin/gpodder
