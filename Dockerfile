@@ -21,7 +21,7 @@ RUN \
     py3-dbus \
     py3-gobject3 \
     py3-ipaddr \
-    py3-libxml2
+    py3-libxml2 \
     py3-pip \
     py3-setuptools \
     py3-urlgrabber \
@@ -65,7 +65,7 @@ ENV ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
     LANG=C.UTF-8 \
     LANGUAGE=C.UTF-8 \
     LC_ALL=C.UTF-8 \
-    HOME="/config" \
+    GPODDER_HOME="/config" \
     GPODDER_DOWNLOAD_DIR="/downloads"
 
 COPY root/ /
