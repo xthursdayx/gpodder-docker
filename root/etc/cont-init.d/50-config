@@ -6,7 +6,6 @@ mkdir -p /config/.config/gPodder
 # set webserver port on first install
 [[ ! -f /config/.config/gPodder/server-config.txt ]] && \
   echo "port 3000" > /config/.config/gPodder/server-config.txt
-fi
 
 sed -i 's|"password":"abc",|"password":"kjhbouygiuvhgvghv",|' /gclient/app.js
 sed -i "s#process.env.PASSWORD || 'abc';#process.env.PASSWORD || 'kjhbouygiuvhgvghv';#" /gclient/maketoken.js
