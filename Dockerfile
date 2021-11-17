@@ -65,10 +65,11 @@ ENV ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
     LANG=C.UTF-8 \
     LANGUAGE=C.UTF-8 \
     LC_ALL=C.UTF-8 \
+    HOME="/config" \
     GPODDER_HOME="/config" \
     GPODDER_DOWNLOAD_DIR="/downloads"
 
 COPY root/ /
 
-VOLUME /config
+VOLUME ["/downloads","/config"]
 EXPOSE 3000
