@@ -1,5 +1,8 @@
+#### Attention Existing gPodder Docker users
+This image has been rebased which changed the `config` directory structure. If you have settings and/or subscription data you'd like to preserver please be sure to copy the contents of `/config/gPodder` directory to `/config` after pulling the latest image and then restart your container.
+
 <p align="center">
-    <img src="https://raw.githubusercontent.com/xthursdayx/docker-templates/master/images/gpodder-icon.png" alt="" width="150"/>  
+    <img src="https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/images/gpodder-icon.png" alt="" width="150"/>  
 </p>
 
 # gPodder Docker
