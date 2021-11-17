@@ -43,9 +43,11 @@ RUN \
  apk add --no-cache --virtual .locale_tmp cmake make gettext-dev && \
     git clone https://gitlab.com/rilian-la-te/musl-locales && \
     cd musl-locales && \
-    cmake -DLOCALE_PROFILE=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr . && \
-    make && make install && \
-    cd .. && rm -r musl-locales && \
+    cmake . -DLOCALE_PROFILE=OFF -DCMAKE_INSTALL_PREFIX=/usr && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -r musl-locales && \
     apk del .locale_tmp && \
  echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
