@@ -38,11 +38,13 @@ RUN \
     py3-pip \
     py3-setuptools \
     py3-urlgrabber \
-    ttf-freefont \
     webkit2gtk \
     ffmpeg \
     ffmpeg-libs \
-    jq && \
+    jq \
+    ttf-freefont \
+    font-noto && \
+ apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/testing && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
     mygpoclient==1.8 \
