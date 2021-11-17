@@ -5,7 +5,7 @@ mkdir -p /config/.config/gPodder
 
 # set webserver port on first install
 if [ ! -f /config/.config/gPodder/server-config.txt ]; then
-  echo "port 8080" > /config/.config/gPodder/server-config.txt
+  echo "port 3000" > /config/.config/gPodder/server-config.txt
 fi
 
 # permissions
