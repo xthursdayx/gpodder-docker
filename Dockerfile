@@ -44,8 +44,7 @@ RUN \
     jq \
     fontconfig \
     ttf-freefont \
-    font-adobe-100dpi \
-    font-adobe-75dpi \
+    libxfont \
     fonts-noto && \
  apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/testing && \
  echo "**** install PyPI deps ****" && \
