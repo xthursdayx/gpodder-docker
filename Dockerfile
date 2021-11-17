@@ -8,7 +8,12 @@ LABEL maintainer="xthursdayx"
 
 RUN \
  echo "**** install build packages ****" && \
- apk add --no-cache --virtual .build_tmp \
+ apk add --no-cache --virtual=build-deps \
+    gcc \
+    g++ \
+    cmake \
+    make \
+    gettext-dev \
     git \
     intltool \
     help2man && \
@@ -40,22 +45,21 @@ RUN \
     eyed3==0.9.6 \
     youtube_dl==2021.6.6 && \
  echo "**** install locales ****" && \
- apk add --no-cache --virtual .locale_tmp cmake make gettext-dev && \
-    git clone https://gitlab.com/rilian-la-te/musl-locales && \
-    cd musl-locales && \
-    cmake . -DLOCALE_PROFILE=OFF -DCMAKE_INSTALL_PREFIX=/usr && \
-    make && \
-    make install && \
-    cd .. && \
-    rm -r musl-locales && \
-    apk del .locale_tmp && \
+ git clone https://gitlab.com/rilian-la-te/musl-locales && \
+ cd musl-locales && \
+ cmake . -DLOCALE_PROFILE=OFF -DCMAKE_INSTALL_PREFIX=/usr && \
+ make && \
+ make install && \
+ cd .. && \ 
  echo "**** Installing gPodder ****" && \
-    git clone https://github.com/gpodder/gpodder.git && \
-    cd gpodder && \
-    git checkout $GPODDER_TAG && \
+ git clone https://github.com/gpodder/gpodder.git && \
+ cd gpodder && \
+ git checkout $GPODDER_TAG && \
  echo "**** cleanup ****" && \
- apk del .build_tmp && \
+ apk del --purge \
+    build-deps && \
  rm -rf \
+    /musl-locales \
     /tmp/* \
     /var/cache/apk/* \
     /tmp/.[!.]*
