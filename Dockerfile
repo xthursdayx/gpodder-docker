@@ -45,7 +45,7 @@ RUN \
     fontconfig \
     ttf-freefont \
     libxfont \
-    fonts-noto && \
+    font-noto && \
  apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/testing && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
