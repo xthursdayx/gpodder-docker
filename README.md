@@ -22,8 +22,7 @@ docker run -d \
   -e PUID=99 \
   -e PGID=100 \
   -e TZ=America/new_York \
-  -e GUAC_USER=abc `#optional` \
-  -e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72 `#optional` \
+  -e PASSWORD=900150983cd24fb0d6963f7d28e17f72 `#optional` \
   -p 8080:8080 \
   -p 3389:3389 \
   -v /path/to/config:/config \
@@ -47,8 +46,7 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/New_York
-      - GUAC_USER=abc #optional
-      - GUAC_PASS=900150983cd24fb0d6963f7d28e17f72 #optional
+      - PASSWORD=900150983cd24fb0d6963f7d28e17f72 #optional
     volumes:
       - /path/to/config:/config
       - /path/to/downloads:/downloads
@@ -69,8 +67,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=99` | for UserID - see below for more information. |
 | `-e PGID=100` | for GroupID - see below for more information. |
 | `-e TZ=America/New_York` | Specify a timezone to use, e.g. America/New_York. |
-| `-e GUAC_USER=abc` | Specify the username for Guacamole's web interface. |
-| `-e GUAC_PASS=900150983cd24fb0d6963f7d28e17f72` | Specify the password's MD5 hash for Guacamole's web interface. |
+| `-e PASSWORD=900150983cd24fb0d6963f7d28e17f72` | Specify the password's MD5 hash for Guacamole's web interface. (Optional) |
 | `-v /config` | Directory where gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc. |
 | `-v /downloads` | The directory gPodder will download your podcasts to. |
 
@@ -89,24 +86,17 @@ In this instance `PUID=99` and `PGID=100`, to find yours using the following com
 
 ### Authentication
 
-If you want to use authentication, specify `GUAC_USER` with the user name of your choice and `GUAC_PASS` with the MD5 hash of your chosen password. You can do this by running the command: 
-```
-echo -n password | openssl md5
-```
-```
-printf '%s' password | md5sum
-```
-If `GUAC_USER` and `GUAC_PASS` are not set, there will be no authentication. Please be aware that this image is not hardened for internet usage. If you want to access gPodder from outside of your home network please use a reverse ssl proxy such as NGINX to increase security.
+By default, there is no password set for the main gui. Optional environment variable PASSWORD will allow setting a password for the user abc.
+
+ Please be aware that this image is not hardened for internet usage. If you want to access gPodder from outside of your home network please use a reverse ssl proxy such as NGINX to increase security.
   
 ## Usage Instructions:
 
 To access the gPodder GUI, point your web browser to 
 
-* `http://SERVERIP:8080/#/client/c/gPodder` (Replace `SERVERIP` with the correct value). 
+* `http://SERVERIP:3000` (Replace `SERVERIP` with the correct value). 
 
-* You can access gPodder via RDP using port 3389. 
-
-You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift, which will allow you to changing input options and use remote copy/paste or an onscreen keyboard.
+You can access advanced features of the GUI remote desktop using ctrl+alt+shift, which will allow you to changing input options and use remote copy/paste or an onscreen keyboard.
 
 
 If you appreciate my work please consider buying me a coffee, cheers! 😁
