@@ -42,8 +42,11 @@ RUN \
     ffmpeg \
     ffmpeg-libs \
     jq \
+    fontconfig \
     ttf-freefont \
-    font-noto && \
+    font-adobe-100dpi \
+    font-adobe-75dpi \
+    fonts-noto && \
  apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/testing && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
