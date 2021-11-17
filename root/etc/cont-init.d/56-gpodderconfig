@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-# make our folders
+# make folders
 mkdir -p /config/.config/gPodder
 
 # set webserver port on first install
