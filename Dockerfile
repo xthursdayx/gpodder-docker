@@ -1,7 +1,6 @@
 FROM lsiobase/rdesktop-web:alpine
 
 # set build labels
-ENV APPNAME="gPodder"
 ARG BUILD_DATE
 ARG GPODDER_TAG="3.10.21"
 LABEL build_version="gPodder version:- ${GPODDER_TAG} Build-date:- ${BUILD_DATE}"
@@ -30,8 +29,6 @@ RUN \
     ffmpeg \
     ffmpeg-libs \
     jq && \
- apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    xfce4-pulseaudio-plugin && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
     mygpoclient==1.8 \
@@ -53,7 +50,7 @@ RUN \
  echo "**** Installing gPodder ****" && \
     git clone https://github.com/gpodder/gpodder.git && \
     cd gpodder && \
-    git checkout $GPODDER_TAG
+    git checkout $GPODDER_TAG && \
  echo "**** cleanup ****" && \
  apk del .build_tmp && \
  rm -rf \
@@ -61,7 +58,7 @@ RUN \
     /var/cache/apk/* \
     /tmp/.[!.]*
 
-ENV ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
+ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
     LANG=C.UTF-8 \
     LANGUAGE=C.UTF-8 \
     LC_ALL=C.UTF-8 \
