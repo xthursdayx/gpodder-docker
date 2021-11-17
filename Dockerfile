@@ -6,6 +6,15 @@ ARG GPODDER_TAG="3.10.21"
 LABEL build_version="gPodder version:- ${GPODDER_TAG} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="xthursdayx"
 
+ENV GUIAUTOSTART="true" \
+    MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
+    LANG=C.UTF-8 \
+    LANGUAGE=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    HOME="/config" \
+    GPODDER_HOME="/config" \
+    GPODDER_DOWNLOAD_DIR="/downloads"
+
 RUN \
  echo "**** install build packages ****" && \
  apk add --no-cache --virtual=build-deps \
@@ -63,14 +72,6 @@ RUN \
     /tmp/* \
     /var/cache/apk/* \
     /tmp/.[!.]*
-
-ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
-    LANG=C.UTF-8 \
-    LANGUAGE=C.UTF-8 \
-    LC_ALL=C.UTF-8 \
-    HOME="/config" \
-    GPODDER_HOME="/config" \
-    GPODDER_DOWNLOAD_DIR="/downloads"
 
 COPY root/ /
 
