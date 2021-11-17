@@ -71,4 +71,4 @@ ENV ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
 COPY root/ /
 
 VOLUME /config
-EXPOSE 3389 8080
+EXPOSE 3000
