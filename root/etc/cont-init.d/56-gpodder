@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+# default file copies first run
+[[ ! -f /config/.config/gpodder/gpodderrc ]] && \
+        mkdir -p /config/.config/gpodder && \
+        cp /defaults/gpodder /config/.config/gpodder/gpodderrc && \
+        chown -R abc:abc /config/.config
