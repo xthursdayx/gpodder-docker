@@ -7,7 +7,11 @@ This image has been rebased and the `config` directory structure has changed sli
 
 # gPodder Docker
 
-[![Docker Build and Publish](https://github.com/xthursdayx/gpodder-docker/actions/workflows/docker-build-and-publish.yml/badge.svg)](https://github.com/xthursdayx/gpodder-docker/actions/workflows/docker-build-and-publish.yml)
+[![Docker Builds](https://img.shields.io/github/workflow/status/xthursdayx/gpodder-docker/Docker%20Build%20and%20Publish?logo=githubactions&label=Image%20Builds)](https://raw.githubusercontent.com/xthursdayx/gpodder-docker/.github/workflows/docker-build-and-publish.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/xthursdayx/gpodder-docker?logo=docker)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xthursdayx/gpodder-docker/latest?logo=alpinelinux)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/xthursdayx/gpodder-docker?logo=github)](https://github.com/xthursdayx/gpodder-docker/releases)
+[![GitHub](https://img.shields.io/static/v1.svg?label=xthursdayx&message=GitHub&logo=github)](https://github.com/xthursdayx "view the source for all of my repositories.")
 
 A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client with a built-in browser-based GUI.
 
