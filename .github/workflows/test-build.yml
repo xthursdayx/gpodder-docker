@@ -84,7 +84,6 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.DOCKERHUB_SLUG }}:test-light
             ${{ env.GHCR_SLUG }}:test-light
           labels: ${{ steps.dh-meta.outputs.labels }}
 
@@ -167,7 +166,6 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.DOCKERHUB_SLUG }}:test-dark
             ${{ env.GHCR_SLUG }}:test-dark
           labels: ${{ steps.dh-meta.outputs.labels }}
 
