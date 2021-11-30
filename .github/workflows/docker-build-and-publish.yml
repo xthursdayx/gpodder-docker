@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKERHUB_SLUG: xthursdayx/yacreaderlibrary-server-docker
-  GHCR_SLUG: ghcr.io/xthursdayx/yacreaderlibrary-server-docker
+  DOCKERHUB_SLUG: xthursdayx/gpodder-docker
+  GHCR_SLUG: ghcr.io/gpodder-docker
 
 jobs:
   build-light-image:
