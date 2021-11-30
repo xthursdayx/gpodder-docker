@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Docker meta
+      - name: DH meta
         id: dh-meta
         uses: docker/metadata-action@v3
         with:
@@ -34,8 +34,7 @@ jobs:
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
-
-      - name: Docker meta
+      - name: GH meta
         id: gh-meta
         uses: docker/metadata-action@v3
         with:
@@ -49,6 +48,10 @@ jobs:
             org.opencontainers.image.authors=xthursdayx
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S%:z')"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -77,6 +80,7 @@ jobs:
           context: light
           file: light/Dockerfile
           platforms: linux/amd64
+          build-args: BUILD_DATE=${{ steps.date.outputs.date }}
           push: true
           tags: |
             ${{ env.DOCKERHUB_SLUG }}:light
@@ -99,7 +103,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Docker meta
+      - name: DH meta
         id: dh-meta
         uses: docker/metadata-action@v3
         with:
@@ -114,7 +118,7 @@ jobs:
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
-      - name: Docker meta
+      - name: GH meta
         id: gh-meta
         uses: docker/metadata-action@v3
         with:
@@ -128,6 +132,10 @@ jobs:
             org.opencontainers.image.authors=xthursdayx
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S%:z')"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -156,6 +164,7 @@ jobs:
           context: dark
           file: dark/Dockerfile
           platforms: linux/amd64
+          build-args: BUILD_DATE=${{ steps.date.outputs.date }}
           push: true
           tags: |
             ${{ env.DOCKERHUB_SLUG }}:dark
