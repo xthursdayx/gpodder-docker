@@ -1,7 +1,7 @@
 FROM lsiobase/rdesktop-web:alpine
 
 # set build labels
-ARG BUILD_DATE="date '+%Y-%m-%dT%H:%M:%S%:z'"
+ARG BUILD_DATE=${GITHUB_DATE}
 ARG GPODDER_TAG="3.10.21"
 LABEL build_version="gPodder version:-${GPODDER_TAG} Build-date:-${BUILD_DATE}"
 LABEL maintainer="xthursdayx"
