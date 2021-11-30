@@ -55,6 +55,13 @@ jobs:
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
+      - name: Prepare ENV
+        id: prepare
+        run: |
+          echo ::set-output name=args::VERSION=${VERSION} \
+                                       --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%S%:z') \
+                                       --build-arg VCS_REF=${GITHUB_SHA::8}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -82,7 +89,7 @@ jobs:
           context: light
           file: light/Dockerfile
           platforms: linux/amd64
-          build-args: BUILD_DATE=${GITHUB_DATE}
+          build-args: ${{ steps.prepare.outputs.args }}
           push: true
           tags: |
             ${{ env.GHCR_SLUG }}:test-light
@@ -138,6 +145,13 @@ jobs:
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
+      - name: Prepare ENV
+        id: prepare
+        run: |
+          echo ::set-output name=args::VERSION=${VERSION} \
+                                       --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%S%:z') \
+                                       --build-arg VCS_REF=${GITHUB_SHA::8}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -165,7 +179,7 @@ jobs:
           context: dark
           file: dark/Dockerfile
           platforms: linux/amd64
-          build-args: BUILD_DATE=${GITHUB_DATE}
+          build-args: ${{ steps.prepare.outputs.args }}
           push: true
           tags: |
             ${{ env.GHCR_SLUG }}:test-dark
