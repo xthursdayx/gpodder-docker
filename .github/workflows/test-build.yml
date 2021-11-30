@@ -17,6 +17,44 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: DH meta
+        id: dh-meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            ${{ env.DOCKERHUB_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: GH meta
+        id: gh-meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            ${{ env.GHCR_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -44,12 +82,10 @@ jobs:
           context: light
           file: light/Dockerfile
           platforms: linux/amd64
-          push: true
+          push: false
           tags: |
-            ${{ env.DOCKERHUB_SLUG }}:light
-            ${{ env.DOCKERHUB_SLUG }}:latest
-            ${{ env.GHCR_SLUG }}:light
-            ${{ env.GHCR_SLUG }}:latest
+            ${{ env.DOCKERHUB_SLUG }}:test-light
+            ${{ env.GHCR_SLUG }}:test-light
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -62,6 +98,44 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: DH meta
+        id: dh-meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            ${{ env.DOCKERHUB_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: GH meta
+        id: gh-meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            ${{ env.GHCR_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -83,17 +157,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: dark
           file: dark/Dockerfile
           platforms: linux/amd64
-          push: true
+          push: false
           tags: |
-            ${{ env.DOCKERHUB_SLUG }}:dark
-            ${{ env.GHCR_SLUG }}:dark
+            ${{ env.DOCKERHUB_SLUG }}:test-dark
+            ${{ env.GHCR_SLUG }}:test-dark
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
