@@ -28,7 +28,12 @@ jobs:
           flavor: latest=false
           tags: |
             type=ref,event=tag
-          labels: org.opencontainers.image.title=gPodder-docker
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
 
       - name: Docker meta
         id: gh-meta
@@ -39,7 +44,11 @@ jobs:
           flavor: latest=false
           tags: |
             type=ref,event=tag
-          labels: org.opencontainers.image.title=gPodder-docker
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -99,7 +108,11 @@ jobs:
           flavor: latest=false
           tags: |
             type=ref,event=tag
-          labels: org.opencontainers.image.title=gPodder-docker
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
       - name: Docker meta
         id: gh-meta
@@ -110,7 +123,11 @@ jobs:
           flavor: latest=false
           tags: |
             type=ref,event=tag
-          labels: org.opencontainers.image.title=gPodder-docker
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
