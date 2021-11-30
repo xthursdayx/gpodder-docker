@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKERHUB_SLUG: xthursdayx/gpodder-docker
-  GHCR_SLUG: ghcr.io/gpodder-docker
+  GHCR_SLUG: ghcr.io/xthursdayx/gpodder-docker
 
 jobs:
   build-light-image:
