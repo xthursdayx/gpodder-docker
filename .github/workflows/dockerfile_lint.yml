@@ -19,6 +19,18 @@ jobs:
         with:
          directory: /dark
          trustedBaseImages: lsiobase/rdesktop-web 
+ 
+      - name: Post Run
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_OWNER: ${{ github.event.pull_request.head.user.login }}
+        run: |
+          echo "###"
+          echo "{\"pr_name\": \"${PR_TITLE}\", \"pr_sha\": \"${PR_SHA}\", \"pr_owner\": \"${PR_OWNER}\"}" > /tmp/report.json
+          echo ${{ toJSON(steps.cis_dockerfile_benchmark.outputs.violation_report) }} > /tmp/report
+          reportString=$(sed 's/"/\\"/g' /tmp/report)
+          echo $reportString
 
   Benchmark_light:
     runs-on: ubuntu-latest
@@ -30,7 +42,19 @@ jobs:
         uses: sysdiglabs/benchmark-dockerfile@v1.0.0
         with:
          directory: /light
-         trustedBaseImages: lsiobase/rdesktop-web 
+         trustedBaseImages: lsiobase/rdesktop-web
+
+      - name: Post Run
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_OWNER: ${{ github.event.pull_request.head.user.login }}
+        run: |
+          echo "###"
+          echo "{\"pr_name\": \"${PR_TITLE}\", \"pr_sha\": \"${PR_SHA}\", \"pr_owner\": \"${PR_OWNER}\"}" > /tmp/report.json
+          echo ${{ toJSON(steps.cis_dockerfile_benchmark.outputs.violation_report) }} > /tmp/report
+          reportString=$(sed 's/"/\\"/g' /tmp/report)
+          echo $reportString
 
   Lint:
     runs-on: ubuntu-latest
@@ -44,3 +68,5 @@ jobs:
           target: |
             light/Dockerfile
             dark/Dockerfile
+          env: |
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
