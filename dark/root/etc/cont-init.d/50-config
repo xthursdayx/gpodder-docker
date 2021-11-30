@@ -13,7 +13,8 @@ mkdir -p /config/.config/gPodder
   echo "[Settings]" > /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-application-prefer-dark-theme = true" >> /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-theme-name = Materia-dark" >> /config/.config/gtk-3.0/settings.ini && \
-  echo "gtk-icon-theme-name = Adwaita" >> /config/.config/gtk-3.0/settings.ini
+  echo "gtk-font-name = Roboto 10.5" >> /config/.config/gtk-3.0/settings.ini && \
+  echo "gtk-icon-theme-name = Breeze-dark" >> /config/.config/gtk-3.0/settings.ini
 
 sed -i 's|"password":"abc",|"password":"kjhbouygiuvhgvghv",|' /gclient/app.js
 sed -i "s#process.env.PASSWORD || 'abc';#process.env.PASSWORD || 'kjhbouygiuvhgvghv';#" /gclient/maketoken.js
