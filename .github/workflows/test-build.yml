@@ -55,6 +55,10 @@ jobs:
             org.opencontainers.image.vendor=xthursdayx
             org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
 
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S%:z')"
+        
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -82,7 +86,7 @@ jobs:
           context: light
           file: light/Dockerfile
           platforms: linux/amd64
-          build-args: BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%S%:z')
+          build-args: BUILD_DATE=${{ steps.date.outputs.date }}
           push: true
           tags: |
             ${{ env.GHCR_SLUG }}:test-light
