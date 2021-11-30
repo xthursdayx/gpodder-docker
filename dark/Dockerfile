@@ -50,6 +50,7 @@ RUN \
     font-noto && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     adwaita-icon-theme \
+    breeze-icons \
     gtk-murrine-engine \
     gnome-themes-extra && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
