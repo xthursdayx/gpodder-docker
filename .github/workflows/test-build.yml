@@ -82,10 +82,11 @@ jobs:
           context: light
           file: light/Dockerfile
           platforms: linux/amd64
-          push: false
+          push: true
           tags: |
             ${{ env.DOCKERHUB_SLUG }}:test-light
             ${{ env.GHCR_SLUG }}:test-light
+          labels: ${{ steps.dh-meta.outputs.labels }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -164,10 +165,11 @@ jobs:
           context: dark
           file: dark/Dockerfile
           platforms: linux/amd64
-          push: false
+          push: true
           tags: |
             ${{ env.DOCKERHUB_SLUG }}:test-dark
             ${{ env.GHCR_SLUG }}:test-dark
+          labels: ${{ steps.dh-meta.outputs.labels }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
