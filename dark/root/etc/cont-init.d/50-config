@@ -8,7 +8,7 @@ mkdir -p /config/.config/gPodder
   echo "port 3000" > /config/.config/gPodder/server-config.txt
   
 # set dark mode on first install
-[[ ! -f /etc/gtk-3.0/settings.ini ]] && \
+[[ ! -f /config/.config/gtk-3.0/settings.ini ]] && \
   mkdir /config/.config/gtk-3.0 && \
   echo "[Settings]" > /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-application-prefer-dark-theme = true" >> /config/.config/gtk-3.0/settings.ini && \
