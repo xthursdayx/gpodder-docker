@@ -1,0 +1,33 @@
+#!/usr/bin/with-contenv bash
+
+# make folders
+mkdir -p /config/.config/gPodder
+
+# set webserver port on first install
+[[ ! -f /config/.config/gPodder/server-config.txt ]] && \
+  echo "port 3000" > /config/.config/gPodder/server-config.txt
+  
+# set dark mode on first install
+[[ ! -f /etc/gtk-3.0/settings.ini ]] && \
+  mkdir /config/.config/gtk-3.0 && \
+  echo "[Settings]" > /config/.config/gtk-3.0/settings.ini && \
+  echo "gtk-application-prefer-dark-theme = true" >> /config/.config/gtk-3.0/settings.ini && \
+  echo "gtk-theme-name = Materia-dark" >> /config/.config/gtk-3.0/settings.ini && \
+  echo "gtk-icon-theme-name = Adwaita" >> /config/.config/gtk-3.0/settings.ini
+
+sed -i 's|"password":"abc",|"password":"kjhbouygiuvhgvghv",|' /gclient/app.js
+sed -i "s#process.env.PASSWORD || 'abc';#process.env.PASSWORD || 'kjhbouygiuvhgvghv';#" /gclient/maketoken.js
+
+if [ -n "$PASSWORD" ]; then
+    echo "abc:${PASSWORD}" | chpasswd
+    echo "Setting password from environment variable."
+else 
+    echo "abc:kjhbouygiuvhgvghv" | chpasswd
+    echo "No password is set for the interface."
+fi
+
+# permissions
+chown -R abc:abc \
+	/config \
+	/gpodder \
+	/downloads 
