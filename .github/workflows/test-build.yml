@@ -82,6 +82,7 @@ jobs:
           context: light
           file: light/Dockerfile
           platforms: linux/amd64
+          build-args: BUILD_DATE=${GITHUB_DATE}
           push: true
           tags: |
             ${{ env.GHCR_SLUG }}:test-light
@@ -164,6 +165,7 @@ jobs:
           context: dark
           file: dark/Dockerfile
           platforms: linux/amd64
+          build-args: BUILD_DATE=${GITHUB_DATE}
           push: true
           tags: |
             ${{ env.GHCR_SLUG }}:test-dark
