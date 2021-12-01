@@ -1,5 +1,5 @@
-#### Attention Existing gPodder Docker users
-This image has been rebased and the `config` directory structure has changed slightly. If you have settings and/or subscription data you'd like to preserve, please be sure to copy the contents of `/config/gPodder` to `/config` after pulling the latest image and then restart your container.
+#### ** Attention Existing gPodder Docker users **
+This image has been rebased and the `config` directory structure has changed slightly, along with the WebUI port. If you have settings and/or subscription data you'd like to preserve, please be sure to copy the contents of `/config/gPodder` to `/config` after pulling the latest image and then restart your container. Please also update your WebUI port to `<port>:3000`
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/images/gpodder-icon.png" alt="" width="150"/>  
@@ -75,8 +75,7 @@ Container images are configured using parameters passed at runtime (such as thos
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 8080` | HTTP access to the gPodder GUI. |
-| `-p 3389` | RDP access to the gPodder GUI. |
+| `-p 3000` | HTTP access to the gPodder WebUI. |
 | `-e PUID=99` | for UserID - see below for more information. |
 | `-e PGID=100` | for GroupID - see below for more information. |
 | `-e TZ=America/New_York` | Specify a timezone to use, e.g. America/New_York. |
