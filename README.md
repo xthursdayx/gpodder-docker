@@ -26,9 +26,20 @@ By default, there is no password set for the main gui. Optional environment vari
 
 You can access advanced features of the Guacamole remote desktop using `ctrl`+`alt`+`shift` enabling you to use remote copy/paste and different languages.
 
+### gPodder themes
+
+Two versions of this image are available, one with gPodder running with a light GTK theme and one with a dark theme. There are tagged `light` and `dark` versions of the image, and light and dark version of each SemVer tagged release. Using the `latest` tag or no tag at all will default to the the lasest version of image and the light theme. 
+
+| Theme | Tag |
+| :----: | --- |
+| Light | latest/light |
+| Light |  v*.*.*-light |
+| Dark | dark |
+| Dark | v*.*.*-dark |
+
 ## Usage
 
-Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://raw.githubusercontent.com/xthursdayx/docker-templates/master/gpodder.xml) in Community Apps.
+Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/gpodder.xml) in Community Apps.
 
 ### docker-compose
 
