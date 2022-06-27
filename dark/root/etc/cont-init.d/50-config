@@ -16,15 +16,11 @@ mkdir -p /config/.config/gPodder
   echo "gtk-font-name = Roboto 10.5" >> /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-icon-theme-name = Breeze-dark" >> /config/.config/gtk-3.0/settings.ini
 
-sed -i 's|"password":"abc",|"password":"kjhbouygiuvhgvghv",|' /gclient/app.js
-sed -i "s#process.env.PASSWORD || 'abc';#process.env.PASSWORD || 'kjhbouygiuvhgvghv';#" /gclient/maketoken.js
-
 if [ -n "$PASSWORD" ]; then
     echo "abc:${PASSWORD}" | chpasswd
-    echo "Setting password from environment variable."
-else 
-    echo "abc:kjhbouygiuvhgvghv" | chpasswd
-    echo "No password is set for the interface."
+    echo "**** Setting password from environment variable. ****"
+else
+    echo "**** No auth enabled. To enable auth, you can set the PASSWORD var in docker arguments. ****"
 fi
 
 # permissions
