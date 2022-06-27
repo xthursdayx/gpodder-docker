@@ -1,4 +1,4 @@
-FROM lsiobase/rdesktop-web:alpine
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:alpine
 
 # set build labels
 ARG BUILD_DATE
