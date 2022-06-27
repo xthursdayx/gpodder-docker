@@ -7,15 +7,11 @@ mkdir -p /config/.config/gPodder
 [[ ! -f /config/.config/gPodder/server-config.txt ]] && \
   echo "port 3000" > /config/.config/gPodder/server-config.txt
 
-sed -i 's|"password":"abc",|"password":"kjhbouygiuvhgvghv",|' /gclient/app.js
-sed -i "s#process.env.PASSWORD || 'abc';#process.env.PASSWORD || 'kjhbouygiuvhgvghv';#" /gclient/maketoken.js
-
 if [ -n "$PASSWORD" ]; then
     echo "abc:${PASSWORD}" | chpasswd
-    echo "Setting password from environment variable."
-else 
-    echo "abc:kjhbouygiuvhgvghv" | chpasswd
-    echo "No password is set for the interface."
+    echo "**** Setting password from environment variable. ****"
+else
+    echo "**** No auth enabled. To enable auth, you can set the PASSWORD var in docker arguments. ****"
 fi
 
 # permissions
