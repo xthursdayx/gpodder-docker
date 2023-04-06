@@ -122,6 +122,8 @@ In this instance `PUID=1000` and `PGID=1000`, to find yours using the following 
 
 ## Versions
 
+* **06.04.23:** - Update GPodder to 3.11.1 and update dependencies.
+
 * **19.06.21:** -  Rebase to rdesktop-web Alpine baseimage.
 
 

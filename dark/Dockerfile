@@ -2,7 +2,7 @@ FROM ghcr.io/linuxserver/baseimage-rdesktop-web:alpine
 
 # set build labels
 ARG BUILD_DATE
-ARG GPODDER_TAG="3.10.21"
+ARG GPODDER_TAG="3.11.1"
 LABEL build_version="gPodder version:- ${GPODDER_TAG} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="xthursdayx"
 
@@ -59,14 +59,14 @@ RUN \
     wqy-zenhei && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
-    mygpoclient==1.8 \
-    podcastparser==0.6.8 \
-    requests[socks]==2.26.0 \
-    urllib3==1.26.7 \
+    mygpoclient==1.9 \
+    podcastparser==0.6.9 \
+    requests[socks]==2.28.1 \
+    urllib3==1.26.13 \
     html5lib==1.1 \
-    mutagen==1.45.1 \
-    eyed3==0.9.6 \
-    youtube_dl==2021.6.6 && \
+    mutagen==1.46.0 \
+    eyed3 \
+    yt-dlp && \
  echo "**** install locales ****" && \
  git clone https://gitlab.com/rilian-la-te/musl-locales && \
  cd musl-locales && \
