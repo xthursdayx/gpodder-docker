@@ -7,7 +7,7 @@ This image has been rebased and the `config` directory structure has changed sli
 
 # gPodder Docker
 
-[![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/xthursdayx/gpodder-docker/Docker%20Build%20and%20Publish?event=push&logo=githubactions&label=Image%20Builds)](https://raw.githubusercontent.com/xthursdayx/gpodder-docker/main/.github/workflows/docker-build-and-publish.yml)
+[![GitHub Workflow Status (event)](https://img.shields.io/github/actions/workflow/status/xthursdayx/gpodder-docker/docker-build-and-publish.yml?branch=main&logo=githubactions&label=Image%20Builds&event=push)](https://raw.githubusercontent.com/xthursdayx/gpodder-docker/main/.github/workflows/docker-build-and-publish.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/xthursdayx/gpodder-docker?logo=docker)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xthursdayx/gpodder-docker/light?logo=alpinelinux&label=Light)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xthursdayx/gpodder-docker/dark?logo=alpinelinux&label=Dark)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
