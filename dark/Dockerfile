@@ -20,7 +20,6 @@ RUN \
  apk add --no-cache --virtual=build-deps \
     gcc \
     g++ \
-    brotli \
     cmake \
     make \
     gettext-dev \

@@ -29,6 +29,7 @@ RUN \
  echo "**** install dep packages ****" && \
  apk add --no-cache --upgrade \
     python3 \
+    python3-dev \
     py3-cairo \
     py3-click \
     py3-dbus \
