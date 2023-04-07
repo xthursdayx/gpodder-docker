@@ -51,11 +51,11 @@ RUN \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     adwaita-icon-theme \
     breeze-icons \
+    font-roboto \
     gtk-murrine-engine \
     gnome-themes-extra && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     materia-dark \
-    font-roboto \
     wqy-zenhei && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
