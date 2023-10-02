@@ -19,7 +19,7 @@ jobs:
 
       - name: DH meta
         id: dh-meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ${{ env.DOCKERHUB_SLUG }}
@@ -38,7 +38,7 @@ jobs:
 
       - name: GH meta
         id: gh-meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ${{ env.GHCR_SLUG }}
@@ -106,7 +106,7 @@ jobs:
 
       - name: DH meta
         id: dh-meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ${{ env.DOCKERHUB_SLUG }}
@@ -125,7 +125,7 @@ jobs:
 
       - name: GH meta
         id: gh-meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ${{ env.GHCR_SLUG }}
