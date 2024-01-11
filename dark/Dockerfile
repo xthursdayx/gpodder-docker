@@ -54,10 +54,10 @@ RUN \
     breeze-icons \
     font-roboto \
     gtk-murrine-engine \
-    gnome-themes-extra && \
- apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    materia-dark \
+    gnome-themes-extra \
     wqy-zenhei && \
+ apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    materia-dark && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
     mygpoclient==1.9 \

@@ -47,7 +47,7 @@ RUN \
     ttf-freefont \
     libxfont \
     font-noto && \
- apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/testing && \
+ apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/community && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
     mygpoclient==1.9 \
