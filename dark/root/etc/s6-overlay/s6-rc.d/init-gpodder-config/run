@@ -4,23 +4,32 @@
 mkdir -p /config/.config/gPodder
 
 # set webserver port on first install
-[[ ! -f /config/.config/gPodder/server-config.txt ]] && \
+if [[ ! -f /config/.config/gPodder/server-config.txt ]]; then
   echo "port 3000" > /config/.config/gPodder/server-config.txt
-  
+fi
+
 # set dark mode on first install
-[[ ! -f /config/.config/gtk-3.0/settings.ini ]] && \
+if [[ ! -f /config/.config/gtk-3.0/settings.ini ]]; then
   mkdir /config/.config/gtk-3.0 && \
   echo "[Settings]" > /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-application-prefer-dark-theme = true" >> /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-theme-name = Materia-dark" >> /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-font-name = Roboto 10.5" >> /config/.config/gtk-3.0/settings.ini && \
   echo "gtk-icon-theme-name = Breeze-dark" >> /config/.config/gtk-3.0/settings.ini
+fi
 
 if [ -n "$PASSWORD" ]; then
     echo "abc:${PASSWORD}" | chpasswd
     echo "**** Setting password from environment variable. ****"
 else
     echo "**** No auth enabled. To enable auth, you can set the PASSWORD var in docker arguments. ****"
+fi
+
+# default file copies first run
+if [[ ! -f /config/.config/openbox/menu.xml ]]; then
+    mkdir -p /config/.config/openbox && \
+    cp /defaults/menu.xml /config/.config/openbox/menu.xml && \
+    chown -R abc:abc /config/.config
 fi
 
 # permissions

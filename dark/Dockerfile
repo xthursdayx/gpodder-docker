@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:alpine
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
 
 # set build labels
 ARG BUILD_DATE
@@ -6,14 +6,14 @@ ARG GPODDER_TAG="3.11.4"
 LABEL build_version="gPodder version:- ${GPODDER_TAG} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="xthursdayx"
 
-ENV GUIAUTOSTART="true" \
-    MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
+ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=C.UTF-8 \
     HOME="/config" \
     GPODDER_HOME="/config" \
-    GPODDER_DOWNLOAD_DIR="/downloads"
+    GPODDER_DOWNLOAD_DIR="/downloads" \
+    TITLE=gPodder
 
 RUN \
  echo "**** install build packages ****" && \
@@ -47,27 +47,24 @@ RUN \
     jq \
     fontconfig \
     ttf-freefont \
-    libxfont \
     font-noto && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     adwaita-icon-theme \
-    breeze-icons \
+    breeze-icons5 \
+    eyed3 \
     font-roboto \
     gtk-murrine-engine \
-    gnome-themes-extra && \
- apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    materia-dark \
-    wqy-zenhei && \
- echo "**** install PyPI deps ****" && \
- pip3 install --no-cache-dir \
-    mygpoclient==1.9 \
-    podcastparser==0.6.9 \
-    requests[socks]==2.28.1 \
-    urllib3==1.26.13 \
-    html5lib==1.1 \
-    mutagen==1.46.0 \
-    eyed3 \
+#    gnome-themes-extra \
+    mutagen \
+    py3-html5lib \
+    py3-mygpoclient \
+    py3-podcastparser \
+    py3-requests \
+    py3-urllib3 \
+    wqy-zenhei \
     yt-dlp && \
+ apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    materia-dark && \
  echo "**** install locales ****" && \
  git clone https://gitlab.com/rilian-la-te/musl-locales && \
  cd musl-locales && \

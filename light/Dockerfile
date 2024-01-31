@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:alpine
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
 
 # set build labels
 ARG BUILD_DATE
@@ -6,14 +6,14 @@ ARG GPODDER_TAG="3.11.4"
 LABEL build_version="gPodder version:-${GPODDER_TAG} Build-date:-${BUILD_DATE}"
 LABEL maintainer="xthursdayx"
 
-ENV GUIAUTOSTART="true" \
-    MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
+ENV MUSL_LOCPATH="/usr/share/i18n/locales/musl" \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=C.UTF-8 \
     HOME="/config" \
     GPODDER_HOME="/config" \
-    GPODDER_DOWNLOAD_DIR="/downloads"
+    GPODDER_DOWNLOAD_DIR="/downloads" \
+    TITLE=gPodder
 
 RUN \
  echo "**** install build packages ****" && \
@@ -47,7 +47,7 @@ RUN \
     ttf-freefont \
     libxfont \
     font-noto && \
- apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/testing && \
+ apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/community && \
  echo "**** install PyPI deps ****" && \
  pip3 install --no-cache-dir \
     mygpoclient==1.9 \

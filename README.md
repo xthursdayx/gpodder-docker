@@ -1,6 +1,3 @@
-#### ** Attention Existing gPodder Docker users **
-This image has been rebased and the `config` directory structure has changed slightly, along with the WebUI port. If you have settings and/or subscription data you'd like to preserve, please be sure to copy the contents of `/config/gPodder` to `/config` after pulling the latest image and then restart your container. Please also update your WebUI port to `<port>:3000`
-
 <p align="center">
     <img src="https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/images/gpodder-icon.png" alt="" width="150"/>  
 </p>
@@ -121,6 +118,7 @@ In this instance `PUID=1000` and `PGID=1000`, to find yours using the following 
 ```   
 
 ## Versions
+* **31.01.24:** - Rebase to KasmVNC Alpine baseimage, Update GPodder to 3.11.4 and update dependencies.
 
 * **06.04.23:** - Update GPodder to 3.11.1 and update dependencies.
 
