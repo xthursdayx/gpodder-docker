@@ -4,14 +4,22 @@
 mkdir -p /config/.config/gPodder
 
 # set webserver port on first install
-[[ ! -f /config/.config/gPodder/server-config.txt ]] && \
+if [[ ! -f /config/.config/gPodder/server-config.txt ]]; then
   echo "port 3000" > /config/.config/gPodder/server-config.txt
+fi
 
 if [ -n "$PASSWORD" ]; then
     echo "abc:${PASSWORD}" | chpasswd
     echo "**** Setting password from environment variable. ****"
 else
     echo "**** No auth enabled. To enable auth, you can set the PASSWORD var in docker arguments. ****"
+fi
+
+# default file copies first run
+if [[ ! -f /config/.config/openbox/menu.xml ]]; then
+    mkdir -p /config/.config/openbox && \
+    cp /defaults/menu.xml /config/.config/openbox/menu.xml && \
+    chown -R abc:abc /config/.config
 fi
 
 # permissions

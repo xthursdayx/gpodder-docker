@@ -47,16 +47,15 @@ RUN \
     ttf-freefont \
     libxfont \
     font-noto && \
- apk add wqy-zenhei --update-cache --repository https://nl.alpinelinux.org/alpine/edge/community && \
- echo "**** install PyPI deps ****" && \
- pip3 install --no-cache-dir \
-    mygpoclient==1.9 \
-    podcastparser==0.6.9 \
-    requests[socks]==2.28.1 \
-    urllib3==1.26.13 \
-    html5lib==1.1 \
-    mutagen==1.46.0 \
+ apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     eyed3 \
+    mutagen \
+    py3-html5lib \
+    py3-mygpoclient \
+    py3-podcastparser \
+    py3-requests \
+    py3-urllib3 \
+    wqy-zenhei \
     yt-dlp && \
  echo "**** install locales ****" && \
  git clone https://gitlab.com/rilian-la-te/musl-locales && \
