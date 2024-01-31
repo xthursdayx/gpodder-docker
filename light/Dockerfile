@@ -45,7 +45,6 @@ RUN \
     jq \
     fontconfig \
     ttf-freefont \
-    libxfont \
     font-noto && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     eyed3 \
