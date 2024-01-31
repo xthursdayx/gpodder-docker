@@ -37,23 +37,27 @@ RUN \
     py3-ipaddr \
     py3-libxml2 \
     py3-pip \
+    py3-requests \
     py3-setuptools \
     py3-urlgrabber \
+    py3-urllib3 \
     webkit2gtk \
+    gtk+3.0 \
+    gtk+2.0 \
     ffmpeg \
     ffmpeg-libs \
     jq \
     fontconfig \
-    ttf-freefont \
-    font-noto && \
+    ttf-freefont && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     eyed3 \
+    font-noto \
+    gtk-murrine-engine \
     mutagen \
     py3-html5lib \
     py3-mygpoclient \
     py3-podcastparser \
-    py3-requests \
-    py3-urllib3 \
+    webkit2gtk \
     wqy-zenhei \
     yt-dlp && \
  echo "**** install locales ****" && \

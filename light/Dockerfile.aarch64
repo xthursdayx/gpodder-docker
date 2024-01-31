@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-alpine319
 
 # set build labels
 ARG BUILD_DATE
@@ -50,10 +50,7 @@ RUN \
     fontconfig \
     ttf-freefont && \
  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    adwaita-icon-theme \
-    breeze-icons5 \
     eyed3 \
-    font-roboto \
     font-noto \
     gtk-murrine-engine \
 #    gnome-themes-extra \
@@ -64,8 +61,6 @@ RUN \
     webkit2gtk \
     wqy-zenhei \
     yt-dlp && \
- apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    materia-dark && \
  echo "**** install locales ****" && \
  git clone https://gitlab.com/rilian-la-te/musl-locales && \
  cd musl-locales && \

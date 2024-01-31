@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-alpine319
 
 # set build labels
 ARG BUILD_DATE

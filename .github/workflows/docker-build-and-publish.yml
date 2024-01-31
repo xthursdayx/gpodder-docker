@@ -10,16 +10,16 @@ env:
   GHCR_SLUG: ghcr.io/xthursdayx/gpodder-docker
 
 jobs:
-  build-light-image:
+  build-light-image-amd64:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: DH meta
+      - name: Docker meta
         id: dh-meta
         uses: docker/metadata-action@v5
         with:
@@ -82,19 +82,105 @@ jobs:
           platforms: linux/amd64
           build-args: BUILD_DATE=${{ steps.date.outputs.date }}
           push: true
+          provenance: false
           tags: |
-            ${{ env.DOCKERHUB_SLUG }}:light
-            ${{ env.DOCKERHUB_SLUG }}:latest
-            ${{ env.GHCR_SLUG }}:light
-            ${{ env.GHCR_SLUG }}:latest
-            ${{ steps.dh-meta.outputs.tags }}-light
-            ${{ steps.gh-meta.outputs.tags }}-light
+            ${{ env.DOCKERHUB_SLUG }}:light-amd64
+            ${{ env.DOCKERHUB_SLUG }}:latest-amd64
+            ${{ env.GHCR_SLUG }}:light-amd64
+            ${{ env.GHCR_SLUG }}:latest-amd64
+            ${{ steps.dh-meta.outputs.tags }}-amd64
+            ${{ steps.gh-meta.outputs.tags }}-amd64
           labels: ${{ steps.dh-meta.outputs.labels }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  build-dark-image:
+  build-light-image-arm64v8:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Docker meta
+        id: dh-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.DOCKERHUB_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=tag
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: GH meta
+        id: gh-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.GHCR_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=tag
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S%:z')"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: docker_build
+        uses: docker/build-push-action@v5
+        with:
+          context: light
+          file: light/Dockerfile.aarch64
+          platforms: linux/arm64/v8
+          build-args: BUILD_DATE=${{ steps.date.outputs.date }}
+          push: true
+          provenance: false
+          tags: |
+            ${{ env.DOCKERHUB_SLUG }}:light-arm64v8
+            ${{ env.DOCKERHUB_SLUG }}:latest-arm64v8
+            ${{ env.GHCR_SLUG }}:light-arm64v8
+            ${{ env.GHCR_SLUG }}:latest-arm64v8
+            ${{ steps.dh-meta.outputs.tags }}-arm64v8
+            ${{ steps.gh-meta.outputs.tags }}-arm64v8
+          labels: ${{ steps.dh-meta.outputs.labels }}
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+  build-dark-image-amd64:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -166,12 +252,193 @@ jobs:
           platforms: linux/amd64
           build-args: BUILD_DATE=${{ steps.date.outputs.date }}
           push: true
+          provenance: false
           tags: |
-            ${{ env.DOCKERHUB_SLUG }}:dark
-            ${{ env.GHCR_SLUG }}:dark
-            ${{ steps.dh-meta.outputs.tags }}-dark
-            ${{ steps.gh-meta.outputs.tags }}-dark
-          labels: ${{ steps.dh-meta.outputs.labels }}
+            ${{ env.DOCKERHUB_SLUG }}:dark-amd64
+            ${{ env.GHCR_SLUG }}:dark-amd64
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  build-dark-image-arm64v8:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: DH meta
+        id: dh-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.DOCKERHUB_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=tag
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: GH meta
+        id: gh-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.GHCR_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=tag
+          labels: |
+            org.opencontainers.image.title=gPodder-docker
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S%:z')"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: docker_build
+        uses: docker/build-push-action@v5
+        with:
+          context: dark
+          file: dark/Dockerfile.aarch64
+          platforms: linux/arm64/v8
+          build-args: BUILD_DATE=${{ steps.date.outputs.date }}
+          push: true
+          provenance: false
+          tags: |
+            ${{ env.DOCKERHUB_SLUG }}:dark-arm64v8
+            ${{ env.GHCR_SLUG }}:dark-arm64v8
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+  push-manifest:
+    needs: [build-dark-image-amd64, build-light-image-arm64v8, build-dark-image-amd64, build-dark-image-arm64v8]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker meta
+        id: dh-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.DOCKERHUB_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=tag
+
+      - name: Docker meta
+        id: gh-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.GHCR_SLUG }}
+          flavor: latest=false
+          tags: |
+            type=ref,event=tag
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+    
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create manifest for multi-arch images @ Docker Hub
+        run: |
+          # get artifacts from previous steps and integrate into one multi-arch manifest
+          docker pull --platform=linux/amd64 ${{ env.DOCKERHUB_SLUG }}:light-amd64
+          docker pull --platform=linux/arm64 ${{ env.DOCKERHUB_SLUG }}:light-arm64v8
+          docker pull --platform=linux/amd64 ${{ env.DOCKERHUB_SLUG }}:latest-amd64
+          docker pull --platform=linux/arm64 ${{ env.DOCKERHUB_SLUG }}:latest-arm64v8
+          docker pull --platform=linux/amd64 ${{ env.DOCKERHUB_SLUG }}:dark-amd64
+          docker pull --platform=linux/arm64 ${{ env.DOCKERHUB_SLUG }}:dark-arm64v8
+          docker pull --platform=linux/amd64 ${{ steps.dh-meta.outputs.tags }}-amd64
+          docker pull --platform=linux/arm64 ${{ steps.dh-meta.outputs.tags }}-arm64v8
+          docker manifest create ${{ env.DOCKERHUB_SLUG }}:latest ${{ env.DOCKERHUB_SLUG }}:latest-amd64 ${{ env.DOCKERHUB_SLUG }}:latest-arm64v8
+          docker manifest annotate ${{ env.DOCKERHUB_SLUG }}:latest --os linux --arch amd64 ${{ env.DOCKERHUB_SLUG }}:latest-amd64
+          docker manifest annotate ${{ env.DOCKERHUB_SLUG }}:latest --os linux --arch arm64 --variant v8 ${{ env.DOCKERHUB_SLUG }}:latest-arm64v8
+          docker manifest push ${{ env.DOCKERHUB_SLUG }}:latest        
+          docker manifest create ${{ env.DOCKERHUB_SLUG }}:light ${{ env.DOCKERHUB_SLUG }}:light-amd64 --amend ${{ env.DOCKERHUB_SLUG }}:light-arm64v8 --amend
+          docker manifest annotate ${{ env.DOCKERHUB_SLUG }}:light --os linux --arch amd64 ${{ env.DOCKERHUB_SLUG }}:light-amd64
+          docker manifest annotate ${{ env.DOCKERHUB_SLUG }}:light --os linux --arch arm64 --variant v8 ${{ env.DOCKERHUB_SLUG }}:light-arm64v8
+          docker manifest push ${{ env.DOCKERHUB_SLUG }}:light
+          docker manifest create ${{ env.DOCKERHUB_SLUG }}:dark ${{ env.DOCKERHUB_SLUG }}:dark-amd64 ${{ env.DOCKERHUB_SLUG }}:dark-arm64v8
+          docker manifest annotate ${{ env.DOCKERHUB_SLUG }}:dark --os linux --arch amd64 ${{ env.DOCKERHUB_SLUG }}:dark-amd64
+          docker manifest annotate ${{ env.DOCKERHUB_SLUG }}:dark --os linux --arch arm64 --variant v8 ${{ env.DOCKERHUB_SLUG }}:dark-arm64v8
+          docker manifest push ${{ env.DOCKERHUB_SLUG }}:dark
+          docker manifest create ${{ steps.dh-meta.outputs.tags }} ${{ steps.dh-meta.outputs.tags }}-amd64 ${{ steps.dh-meta.outputs.tags }}-arm64v8
+          docker manifest annotate ${{ steps.dh-meta.outputs.tags }} --os linux --arch amd64 ${{ steps.dh-meta.outputs.tags }}-amd64
+          docker manifest annotate ${{ steps.dh-meta.outputs.tags }} --os linux --arch arm64 --variant v8 ${{ steps.dh-meta.outputs.tags }}-arm64v8
+          docker manifest push ${{ steps.dh-meta.outputs.tags }}
+          
+
+      - name: Create manifest for multi-arch images @ GHCR
+        run: |
+          docker pull --platform=linux/amd64 ${{ env.GHCR_SLUG }}:light-amd64
+          docker pull --platform=linux/arm64 ${{ env.GHCR_SLUG }}:light-arm64v8
+          docker pull --platform=linux/amd64 ${{ env.GHCR_SLUG }}:latest-amd64
+          docker pull --platform=linux/arm64 ${{ env.GHCR_SLUG }}:latest-arm64v8
+          docker pull --platform=linux/amd64 ${{ env.GHCR_SLUG }}:dark-amd64
+          docker pull --platform=linux/arm64 ${{ env.GHCR_SLUG }}:dark-arm64v8
+          docker pull --platform=linux/amd64 ${{ steps.gh-meta.outputs.tags }}-amd64
+          docker pull --platform=linux/arm64 ${{ steps.gh-meta.outputs.tags }}-arm64v8
+          docker manifest create -a ${{ env.GHCR_SLUG }}:light ${{ env.GHCR_SLUG }}:light-amd64 ${{ env.GHCR_SLUG }}:light-arm64v8
+          docker manifest annotate ${{ env.GHCR_SLUG }}:light --os linux --arch amd64 ${{ env.GHCR_SLUG }}:light-amd64
+          docker manifest annotate ${{ env.GHCR_SLUG }}:light --os linux --arch arm64 --variant v8 ${{ env.GHCR_SLUG }}:light-arm64v8
+          docker manifest push ${{ env.GHCR_SLUG }}:light
+          docker manifest create ${{ env.GHCR_SLUG }}:dark ${{ env.GHCR_SLUG }}:dark-amd64 ${{ env.GHCR_SLUG }}:dark-arm64v8
+          docker manifest annotate ${{ env.GHCR_SLUG }}:dark --os linux --arch amd64 ${{ env.GHCR_SLUG }}:dark-amd64
+          docker manifest annotate ${{ env.GHCR_SLUG }}:dark --os linux --arch arm64 --variant v8 ${{ env.GHCR_SLUG }}:dark-arm64v8
+          docker manifest push ${{ env.GHCR_SLUG }}:dark
+          docker manifest create ${{ env.GHCR_SLUG }}:latest ${{ env.GHCR_SLUG }}:latest-amd64 ${{ env.GHCR_SLUG }}:latest-arm64v8
+          docker manifest annotate ${{ env.GHCR_SLUG }}:latest --os linux --arch amd64 ${{ env.GHCR_SLUG }}:latest-amd64
+          docker manifest annotate ${{ env.GHCR_SLUG }}:latest --os linux --arch arm64 --variant v8 ${{ env.GHCR_SLUG }}:latest-arm64v8
+          docker manifest push ${{ env.GHCR_SLUG }}:latest
+          docker manifest create ${{ steps.gh-meta.outputs.tags }} ${{ steps.gh-meta.outputs.tags }}-amd64 ${{ steps.gh-meta.outputs.tags }}-arm64v8
+          docker manifest annotate ${{ steps.gh-meta.outputs.tags }} --os linux --arch amd64 ${{ steps.gh-meta.outputs.tags }}-amd64
+          docker manifest annotate ${{ steps.gh-meta.outputs.tags }} --os linux --arch arm64 --variant v8 ${{ steps.gh-meta.outputs.tags }}-arm64v8
+          docker manifest push ${{ steps.gh-meta.outputs.tags }} 
