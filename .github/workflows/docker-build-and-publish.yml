@@ -341,7 +341,7 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   push-manifest:
-    needs: [build-dark-image-amd64, build-light-image-arm64v8, build-dark-image-amd64, build-dark-image-arm64v8]
+    needs: [build-light-image-amd64, build-light-image-arm64v8, build-dark-image-amd64, build-dark-image-arm64v8]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
