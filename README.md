@@ -23,7 +23,7 @@ By default, there is no password set for the main gui. Optional environment vari
 
 You can access advanced features of the Guacamole remote desktop using `ctrl`+`alt`+`shift` enabling you to use remote copy/paste and different languages.
 
-### gPodder themes
+### gPodder Themes
 
 Two versions of this image are available, one with gPodder running with a light GTK theme and one with a dark theme. There are tagged `light` and `dark` versions of the image, and light and dark version of each SemVer tagged release. Using the `latest` tag or no tag at all will default to the the lasest version of image and the light theme. 
 
@@ -33,6 +33,23 @@ Two versions of this image are available, one with gPodder running with a light 
 | Light |  v*.*.*-light |
 | Dark | dark |
 | Dark | v*.*.*-dark |
+
+### Supported Architectures
+
+This image supports multiple architectures, specifically `x86-64` and `arm64`, through the use of a docker manifest for multi-platform awareness. You can read more about docker manifests [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list).
+
+There is a tagged `light` and `dark` version of the image for each supported architecture. Simply pulling `xthursdayx/gpodder-docker:<tag>` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
+
+The architectures supported by this image, and the associated tags are:
+
+| Architecture | Tag |
+| :----: | --- |
+| x86-64 | latest/light |
+| x86-64 | dark |
+| x86-64 | light-amd64 |
+| x86-64 | dark-amd64 |
+| arm64 | light-arm64v8 |
+| arm64 | dark-arm64v8 |
 
 ## Usage
 
