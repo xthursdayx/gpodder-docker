@@ -75,7 +75,7 @@ jobs:
 
       - name: Build and push Docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: light
           file: light/Dockerfile
@@ -160,7 +160,7 @@ jobs:
 
       - name: Build and push Docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: light
           file: light/Dockerfile.aarch64
@@ -245,7 +245,7 @@ jobs:
 
       - name: Build and push Docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dark
           file: dark/Dockerfile
@@ -325,7 +325,7 @@ jobs:
 
       - name: Build and push Docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: dark
           file: dark/Dockerfile.aarch64
