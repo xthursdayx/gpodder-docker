@@ -2,7 +2,7 @@ FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
 
 # set build labels
 ARG BUILD_DATE
-ARG GPODDER_TAG="3.11.4"
+ARG GPODDER_TAG="3.11.5"
 LABEL build_version="gPodder version:-${GPODDER_TAG} Build-date:-${BUILD_DATE}"
 LABEL maintainer="xthursdayx"
 
