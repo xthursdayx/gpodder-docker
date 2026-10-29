@@ -1,0 +1,40 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+DOWNLOAD_DIR="${GPODDER_DOWNLOAD_DIR:-/downloads}"
+
+# Download dir: create it and own the top level only. Never chown -R here,
+# it is usually a media share and can be huge.
+mkdir -p "${DOWNLOAD_DIR}"
+if [[ "$(stat -c %u "${DOWNLOAD_DIR}")" != "$(id -u abc)" ]]; then
+  chown abc:abc "${DOWNLOAD_DIR}" || echo "**** Could not chown ${DOWNLOAD_DIR}; make sure PUID/PGID can write to it ****"
+fi
+
+# Migrate session files from 1.x, which ran gPodder from a git checkout in /gpodder.
+for f in "${HOME}"/.config/{openbox,labwc}/{autostart,menu.xml,menu.xml.bak}; do
+  if [[ -f "${f}" ]] && grep -q '/gpodder/bin/gpodder' "${f}"; then
+    echo "**** Migrating ${f} to /usr/bin/wrapped-gpodder ****"
+    sed -i 's#/gpodder/bin/gpodder#/usr/bin/wrapped-gpodder#g' "${f}"
+  fi
+done
+
+# 1.x "dark" tag pinned Materia/Breeze/Roboto, which are no longer installed.
+# Drop those lines and keep prefer-dark, which gPodder 3.11.5+ honours itself.
+GTK_SETTINGS="${HOME}/.config/gtk-3.0/settings.ini"
+if [[ -f "${GTK_SETTINGS}" ]] && grep -q 'Materia-dark' "${GTK_SETTINGS}"; then
+  echo "**** Removing legacy Materia/Breeze theme settings ****"
+  sed -i -E '/^gtk-(theme|icon-theme|font)-name/d' "${GTK_SETTINGS}"
+fi
+
+# Seed the colour scheme on a fresh config. gPodder reads this once, stores it
+# as ui.gtk.color_scheme, and from then on Preferences > Interface controls it.
+if [[ ! -f "${GTK_SETTINGS}" ]]; then
+  mkdir -p "$(dirname "${GTK_SETTINGS}")"
+  if [[ "${GPODDER_THEME,,}" == "dark" ]]; then
+    printf '[Settings]\ngtk-application-prefer-dark-theme = true\n' > "${GTK_SETTINGS}"
+  else
+    printf '[Settings]\ngtk-application-prefer-dark-theme = false\n' > "${GTK_SETTINGS}"
+  fi
+fi
+
+lsiown -R abc:abc "${HOME}/.config"

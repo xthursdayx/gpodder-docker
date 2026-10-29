@@ -1,0 +1,141 @@
+name: Build
+
+on:
+  release:
+    types: [published]   # publish a vX.Y.Z GitHub release to ship tagged images
+  pull_request:          # build + smoke test only, nothing is pushed
+  workflow_dispatch:     # manual run: build + smoke test, push only with `push: true`
+    inputs:
+      push:
+        description: Push images (tags :edge and :edge-dark)
+        type: boolean
+        default: false
+
+env:
+  DOCKERHUB_SLUG: xthursdayx/gpodder-docker
+  GHCR_SLUG: ghcr.io/xthursdayx/gpodder-docker
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (${{ matrix.theme }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - theme: light
+            tags: |
+              type=semver,pattern={{version}}
+              type=semver,pattern={{major}}.{{minor}}
+              type=semver,pattern={{major}}
+              type=raw,value=latest,enable=${{ github.event_name == 'release' }}
+              type=raw,value=light,enable=${{ github.event_name == 'release' }}
+              type=raw,value=edge,enable=${{ github.event_name == 'workflow_dispatch' }}
+          - theme: dark
+            tags: |
+              type=semver,pattern={{version}},suffix=-dark
+              type=semver,pattern={{major}}.{{minor}},suffix=-dark
+              type=semver,pattern={{major}},suffix=-dark
+              type=raw,value=dark,enable=${{ github.event_name == 'release' }}
+              type=raw,value=edge-dark,enable=${{ github.event_name == 'workflow_dispatch' }}
+    env:
+      PUSH: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Read gPodder version from Dockerfile
+        id: gpodder
+        run: echo "version=$(sed -n 's/^ARG GPODDER_VERSION=//p' Dockerfile | head -n1)" >> "$GITHUB_OUTPUT"
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.DOCKERHUB_SLUG }}
+            ${{ env.GHCR_SLUG }}
+          flavor: latest=false
+          tags: ${{ matrix.tags }}
+          labels: |
+            org.opencontainers.image.title=gPodder Docker
+            org.opencontainers.image.description=gPodder podcast client in the browser (${{ matrix.theme }} default theme)
+            org.opencontainers.image.authors=xthursdayx
+            org.opencontainers.image.vendor=xthursdayx
+            org.opencontainers.image.documentation=https://github.com/xthursdayx/gpodder-docker
+            io.github.xthursdayx.gpodder.version=${{ steps.gpodder.outputs.version }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Build once for the runner's arch and load it so it can be tested.
+      - name: Build test image (amd64)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: gpodder-docker:test
+          build-args: |
+            GPODDER_THEME=${{ matrix.theme }}
+          cache-from: type=gha,scope=${{ matrix.theme }}
+          cache-to: type=gha,scope=${{ matrix.theme }},mode=max
+
+      - name: Smoke test
+        run: |
+          docker run --rm --entrypoint /usr/bin/gpodder gpodder-docker:test --version
+          docker run --rm --entrypoint /usr/bin/python3 gpodder-docker:test -c "
+          import gi
+          gi.require_version('Gtk', '3.0')
+          gi.require_version('WebKit2', '4.1')
+          from gi.repository import WebKit2
+          import gpodder, podcastparser, mygpoclient, dbus, requests, socks, html5lib
+          import mutagen, eyed3, yt_dlp, PIL
+          assert gpodder.__version__ == '${{ steps.gpodder.outputs.version }}', gpodder.__version__
+          print('gPodder', gpodder.__version__, 'imports OK')
+          "
+          docker run --rm --entrypoint /bin/sh gpodder-docker:test -c \
+            'test -f /usr/share/gpodder/no-update-check && test -x /usr/bin/wrapped-gpodder && test -x /etc/s6-overlay/s6-rc.d/init-gpodder-config/run && test "$GPODDER_THEME" = "${{ matrix.theme }}"'
+
+      - name: Login to Docker Hub
+        if: env.PUSH == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to GHCR
+        if: env.PUSH == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push (amd64 + arm64)
+        if: env.PUSH == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            GPODDER_THEME=${{ matrix.theme }}
+            VERSION=${{ steps.meta.outputs.version }}
+            BUILD_DATE=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+          cache-from: type=gha,scope=${{ matrix.theme }}
+          cache-to: type=gha,scope=${{ matrix.theme }},mode=max
+          provenance: true
+          sbom: true

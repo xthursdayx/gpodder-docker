@@ -1,0 +1,49 @@
+name: Check gPodder release
+
+on:
+  schedule:
+    - cron: '14 14 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Compare pinned and latest gPodder release
+        id: versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(sed -n 's/^ARG GPODDER_VERSION=//p' Dockerfile | head -n1)
+          latest=$(gh release view --repo gpodder/gpodder --json tagName --jq .tagName)
+          echo "current=${current}" >> "$GITHUB_OUTPUT"
+          echo "latest=${latest}" >> "$GITHUB_OUTPUT"
+          if [ -n "${latest}" ] && [ "${latest}" != "${current}" ]; then
+            sed -i "s/^ARG GPODDER_VERSION=.*/ARG GPODDER_VERSION=${latest}/" Dockerfile
+            echo "Bumping gPodder ${current} -> ${latest}"
+          else
+            echo "gPodder ${current} is current"
+          fi
+
+      - name: Open pull request
+        if: steps.versions.outputs.latest != steps.versions.outputs.current
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # PRs opened with the default GITHUB_TOKEN don't trigger other workflows,
+          # so the Build smoke test only runs automatically if a PAT is configured.
+          token: ${{ secrets.PR_TOKEN || github.token }}
+          branch: gpodder/${{ steps.versions.outputs.latest }}
+          commit-message: "chore: update gPodder to ${{ steps.versions.outputs.latest }}"
+          title: "chore: update gPodder to ${{ steps.versions.outputs.latest }}"
+          body: |
+            Updates gPodder from ${{ steps.versions.outputs.current }} to [${{ steps.versions.outputs.latest }}](https://github.com/gpodder/gpodder/releases/tag/${{ steps.versions.outputs.latest }}).
+
+            After the Build smoke test passes and this is merged, publish a release of this image
+            (gPodder patch release -> image patch bump, gPodder minor/major -> image minor bump).

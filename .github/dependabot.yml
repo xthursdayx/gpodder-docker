@@ -1,16 +1,13 @@
 version: 2
 updates:
-  - package-ecosystem: 'github-actions'
-    directory: '/.github/workflows'
+  # Keeps the actions in .github/workflows current.
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: 'daily'
-
-  - package-ecosystem: 'docker'
-    directory: '/light'
-    schedule:
-      interval: 'daily'
-
-  - package-ecosystem: 'docker'
-    directory: '/dark'
-    schedule:
-      interval: 'daily'
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+# The Docker base is not tracked here: LinuxServer's Selkies base uses distro
+# tags (alpine324 -> alpine325) that Dependabot can't version-compare. Bump the
+# two FROM lines in the Dockerfile together when LSIO publishes a new Alpine tag.
