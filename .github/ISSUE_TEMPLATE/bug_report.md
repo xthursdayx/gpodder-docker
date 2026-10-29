@@ -30,13 +30,15 @@ If applicable, add screenshots to help explain your problem.
 
 ## Environment
 **OS:**
-**CPU architecture:** x86_64/arm32/arm64
+**CPU architecture:** x86_64/arm64
+**Image tag / version:**
+**Browser:**
 
 ## Command used to create docker container (run/create/compose/screenshot)
 <!--- Provide your docker create/run command or compose yaml snippet, or a screenshot of settings if using a gui to create the container -->
 
 ## Docker logs
-<!--- Provide a full docker log, output of "docker logs gPodder" -->
+<!--- Provide a full docker log, output of "docker logs gpodder" -->
 
 ## Additional information
 <!--- Add any additional information about the problem here. -->

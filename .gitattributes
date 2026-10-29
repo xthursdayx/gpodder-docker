@@ -58,3 +58,7 @@ Dockerfile text eol=lf
 *.pdf binary
 *.db binary
 *.xz binary
+
+# Scripts copied into the image must keep LF endings
+root/** text eol=lf
+Dockerfile text eol=lf

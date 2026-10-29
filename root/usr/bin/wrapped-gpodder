@@ -1,0 +1,23 @@
+#!/bin/bash
+# Launch gPodder inside the Selkies session.
+# Extra gPodder flags can be passed with the GPODDER_CLI env var.
+
+# gPodder is single-instance per D-Bus session; don't start a second copy
+# against the same database if the menu entry is clicked while it's running.
+if pgrep -u "$(id -u)" -f '/bin/gpodder( |$)' > /dev/null; then
+  exit 0
+fi
+
+# WebKitGTK (HTML show notes) can render blank pages in containers without a
+# usable GPU when its DMA-BUF renderer is enabled. Opt back in by setting 0.
+export WEBKIT_DISABLE_DMABUF_RENDERER="${WEBKIT_DISABLE_DMABUF_RENDERER:-1}"
+
+# gPodder refuses to start without a session bus. The X11 (Openbox) session
+# provides one; the Wayland (labwc) session may not.
+# GPODDER_CLI is intentionally unquoted so it can carry several flags.
+if [ -z "${DBUS_SESSION_BUS_ADDRESS}" ]; then
+  # shellcheck disable=SC2086
+  exec dbus-run-session -- /usr/bin/gpodder ${GPODDER_CLI} "$@"
+fi
+# shellcheck disable=SC2086
+exec /usr/bin/gpodder ${GPODDER_CLI} "$@"

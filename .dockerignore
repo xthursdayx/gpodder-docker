@@ -1,5 +1,6 @@
 .git
-.gitignore
 .github
 .gitattributes
-README.md
+.gitignore
+*.md
+LICENSE

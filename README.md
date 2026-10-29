@@ -1,146 +1,165 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/images/gpodder-icon.png" alt="" width="150"/>  
+    <img src="https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/images/gpodder-icon.png" alt="" width="150"/>
 </p>
 
 # gPodder Docker
 
-[![GitHub Workflow Status (event)](https://img.shields.io/github/actions/workflow/status/xthursdayx/gpodder-docker/docker-build-and-publish.yml?branch=main&logo=githubactions&label=Image%20Builds&event=push)](https://raw.githubusercontent.com/xthursdayx/gpodder-docker/main/.github/workflows/docker-build-and-publish.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/xthursdayx/gpodder-docker/build.yml?logo=githubactions&label=Build)](https://github.com/xthursdayx/gpodder-docker/actions/workflows/build.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/xthursdayx/gpodder-docker?logo=docker)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xthursdayx/gpodder-docker/light?logo=alpinelinux&label=Light)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/xthursdayx/gpodder-docker/dark?logo=alpinelinux&label=Dark)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/xthursdayx/gpodder-docker?logo=github)](https://github.com/xthursdayx/gpodder-docker/releases)
-[![GitHub](https://img.shields.io/static/v1.svg?label=xthursdayx&message=GitHub&logo=github)](https://github.com/xthursdayx "view the source for all of my repositories.")
+[![Image Size](https://img.shields.io/docker/image-size/xthursdayx/gpodder-docker/latest?logo=alpinelinux&label=Image)](https://hub.docker.com/r/xthursdayx/gpodder-docker/)
+[![GitHub release](https://img.shields.io/github/v/release/xthursdayx/gpodder-docker?logo=github)](https://github.com/xthursdayx/gpodder-docker/releases)
 
-A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client with a built-in browser-based GUI.
+A dockerized version of the [gPodder](https://gpodder.github.io/) podcast client, running in your web browser.
 
-[gPodder](https://gpodder.github.io/) is a simple, open source podcast client written in Python using GTK+. In development since 2005 with a proven, mature codebase.
+[gPodder](https://gpodder.github.io/) is a simple, open source podcast client written in Python using GTK. In development since 2005 with a proven, mature codebase.
+
+This image runs the official gPodder release on LinuxServer.io's [Selkies](https://docs.linuxserver.io/images/docker-baseimage-selkies/) web desktop base (Alpine), for `x86-64` and `arm64`.
+
+> [!IMPORTANT]
+> **Upgrading from 1.x?** 2.0 is a new base image. Your `/config` and `/downloads` carry over as-is, but read [Upgrading from 1.x](#upgrading-from-1x) first: the recommended port and compose options changed.
 
 ## Application Setup
 
-This image sets up the gPodder desktop app and makes its interface available via Guacamole in your web browser. The interface is available at `http://your-ip:3000`.
+Open **`https://your-ip:3001`** and accept the self-signed certificate. Port `3000` serves plain HTTP and is intended for use behind an HTTPS reverse proxy such as [SWAG](https://docs.linuxserver.io/general/swag/).
 
-By default, there is no password set for the main gui. Optional environment variable `PASSWORD` will allow setting a password for the user `abc`.
+By default there is no login. Set `PASSWORD` (and optionally `CUSTOM_USER`, default `abc`) to enable HTTP basic auth. This is meant to keep casual visitors out, not to expose gPodder to the internet; use a reverse proxy with real authentication for that.
 
-You can access advanced features of the Guacamole remote desktop using `ctrl`+`alt`+`shift` enabling you to use remote copy/paste and different languages.
+Right-click the desktop for a menu to relaunch gPodder or open a terminal. Set `RESTART_APP=true` to have gPodder restarted automatically if it is closed.
 
-### gPodder Themes
+### Light and dark mode
 
-Two versions of this image are available, one with gPodder running with a light GTK theme and one with a dark theme. There are tagged `light` and `dark` versions of the image, and light and dark version of each SemVer tagged release. Using the `latest` tag or no tag at all will default to the the lasest version of image and the light theme. 
+gPodder 3.11.5 has its own colour scheme setting: **Preferences → Interface → Color scheme**. That is the only switch you need, and it persists in `/config`.
 
-| Theme | Tag |
-| :----: | --- |
-| Light | latest/light |
-| Light |  v*.*.*-light |
-| Dark | dark |
-| Dark | v*.*.*-dark |
+The `dark` tags are the same image with dark mode as the default for a *new* `/config`. You can also get that from the regular image with `-e GPODDER_THEME=dark`.
 
-### Supported Architectures
+## Image tags
 
-This image supports multiple architectures, specifically `x86-64` and `arm64`, through the use of a docker manifest for multi-platform awareness. You can read more about docker manifests [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list).
+| Tag | Description |
+| :-- | :-- |
+| `latest`, `light` | Latest release, light default |
+| `dark` | Latest release, dark default |
+| `X.Y.Z`, `X.Y`, `X` | Pinned release, light default |
+| `X.Y.Z-dark`, `X.Y-dark`, `X-dark` | Pinned release, dark default |
 
-There is a tagged `light` and `dark` version of the image for each supported architecture. Simply pulling `xthursdayx/gpodder-docker:<tag>` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
-
-The architectures supported by this image, and the associated tags are:
-
-| Architecture | Tag |
-| :----: | --- |
-| x86-64 | latest/light |
-| x86-64 | dark |
-| x86-64 | light-amd64 |
-| x86-64 | dark-amd64 |
-| arm64 | light-arm64v8 |
-| arm64 | dark-arm64v8 |
+Every tag is a multi-arch manifest (`linux/amd64`, `linux/arm64`); Docker pulls the right one automatically.
 
 ## Usage
 
-Here are some examples to help you get started creating a container. If you are an UNRAID user you can access my [UNRAID gPodder template](https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/gpodder.xml) in Community Apps.
+If you use UNRAID, my [gPodder template](https://raw.githubusercontent.com/xthursdayx/docker-templates/master/xthursdayx/gpodder.xml) is available in Community Apps.
 
-### docker-compose
-
-Compatible with docker-compose v2 schemas.
+### docker compose
 
 ```yaml
----
-version: "2.1"
 services:
   gpodder:
-    image: xthursdayx/gpodder-docker
-    container_name: gPodder
+    image: xthursdayx/gpodder-docker:latest
+    container_name: gpodder
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/New_York
       - PASSWORD= #optional
     volumes:
       - /path/to/config:/config
       - /path/to/downloads:/downloads
     ports:
-      - 3000:3000
+      - 3001:3001
+      - 3000:3000 #optional, plain HTTP for a reverse proxy
+    shm_size: "1gb"
     restart: unless-stopped
 ```
+
 ### docker cli
 
 ```bash
 docker run -d \
-  --name=gPodder \
-  -e PUID=99 \
-  -e PGID=100 \
-  -e TZ=America/new_York \
+  --name=gpodder \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=America/New_York \
   -e PASSWORD= `#optional` \
-  -p 3000:3000 \
+  -p 3001:3001 \
   -v /path/to/config:/config \
   -v /path/to/downloads:/downloads \
+  --shm-size=1gb \
   --restart unless-stopped \
-  xthursdayx/gpodder-docker
+  xthursdayx/gpodder-docker:latest
 ```
 
 ## Parameters
 
-Container images are configured using parameters passed at runtime (such as those listed above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 8080:80` would expose port `80` from inside the container to be accessible from the host's IP on port `8080` outside the container. You can change the external/host port and volume mappings to suit your needs.
-
 | Parameter | Function |
-| :----: | --- |
-| `-p 3000` | HTTP access to the gPodder WebUI. |
-| `-e PUID=99` | for UserID - see below for more information. |
-| `-e PGID=100` | for GroupID - see below for more information. |
-| `-e TZ=America/New_York` | Specify a timezone to use, e.g. America/New_York. |
-| `-e PASSWORD=` | Optionally set a password for the gui. |
-| `-v /config` | Directory where gPodder's configuration and database files will reside, so you won't lose data when you update, reinstall, etc. |
-| `-v /downloads` | The directory gPodder will download your podcasts to. |
+| :-- | :-- |
+| `-p 3001` | HTTPS access to the web UI (self-signed certificate). |
+| `-p 3000` | Plain HTTP, for use behind an HTTPS reverse proxy. |
+| `-e PUID=1000` | User ID gPodder runs as. See [User / Group Identifiers](#user--group-identifiers). |
+| `-e PGID=1000` | Group ID gPodder runs as. |
+| `-e TZ=America/New_York` | Timezone. |
+| `-e PASSWORD=` | Optional HTTP basic auth password for the web UI. |
+| `-e CUSTOM_USER=abc` | Optional HTTP basic auth username. |
+| `-e GPODDER_THEME=light` | `light` or `dark`. Default colour scheme for a new `/config` only; afterwards use gPodder's Preferences. |
+| `-e GPODDER_CLI=` | Extra command-line flags for gPodder, e.g. `--verbose`. |
+| `-e RESTART_APP=true` | Restart gPodder automatically if it is closed. |
+| `-e LC_ALL=de_DE.UTF-8` | Run gPodder (and the session) in another language. |
+| `-v /config` | gPodder's settings and database, plus the desktop session config. |
+| `-v /downloads` | Where gPodder saves episodes. |
+| `--shm-size=1gb` | Shared memory for the browser-streamed desktop. Recommended. |
+
+All of the Selkies base image options (resolution, encoders, GPU acceleration, hardening, Wayland mode and so on) also work; see the [Selkies configuration reference](https://docs.linuxserver.io/selkies/user-guide/configuration/).
 
 ## Environment variables from files (Docker secrets)
 
-You can set any environment variable from a file by using a special prepend `FILE__`.
-
-As an example:
+Any environment variable can be read from a file by prefixing it with `FILE__`:
 
 ```bash
 -e FILE__PASSWORD=/run/secrets/mysecretpassword
 ```
 
-Will set the environment variable `PASSWORD` based on the contents of the `/run/secrets/mysecretpassword` file.
-
-
 ## User / Group Identifiers
 
-When using volumes (`-v` flags) permissions issues can arise between the host OS and the container, you can avoid this by specifying the user `PUID` and group `PGID`.
-
-Ensure any mapped volume directories on your host machine are owned by the same user you specify and you will avoid any permissions issues.
-
-In this instance `PUID=1000` and `PGID=1000`, to find yours using the following command:
+When using volumes, permissions issues can arise between the host OS and the container. Avoid this by setting `PUID` and `PGID` to a user that owns the host directories you mount:
 
 ```bash
-  $ id <username> # Replace with your username
-    uid=1000(dockeruser) gid=1000(dockergroup) groups=1000(dockergroup)
-```   
+$ id <username>
+uid=1000(dockeruser) gid=1000(dockergroup) groups=1000(dockergroup)
+```
+
+The container takes ownership of `/config`. For `/downloads` it only adjusts the top-level folder, so existing files on a media share are never re-owned.
+
+## Upgrading from 1.x
+
+2.0 replaces the KasmVNC base with LinuxServer's Selkies base and collapses the image to one Dockerfile. What you need to do:
+
+1. Map port **3001** and open `https://your-ip:3001` (or point your reverse proxy at port 3000).
+2. Add `shm_size: "1gb"` / `--shm-size=1gb`.
+3. If you pinned per-architecture tags (`light-amd64`, `dark-arm64v8`, `latest-amd64`, ...), switch to the plain tags; they are multi-arch.
+
+Handled automatically on first start: your session autostart and right-click menu are pointed at the new gPodder location, and the old `dark` image's Materia/Breeze theme lines are removed from your GTK settings (dark mode itself is kept). Your podcasts, settings and downloads are untouched.
+
+## Building locally
+
+```bash
+docker build -t gpodder-docker .                                 # light default
+docker build --build-arg GPODDER_THEME=dark -t gpodder-docker:dark .
+docker build --build-arg GPODDER_VERSION=3.11.5 -t gpodder-docker .
+```
+
+## Versioning
+
+Image versions follow [SemVer](https://semver.org/) and are independent of gPodder's version:
+
+- **Major**: changes that require action from users (ports, volumes, base image behaviour, removed tags).
+- **Minor**: new gPodder minor/major versions, new features, non-breaking base image updates.
+- **Patch**: gPodder patch releases, dependency updates and fixes.
+
+The gPodder version in each image is recorded in the `io.github.xthursdayx.gpodder.version` label.
 
 ## Versions
-* **31.01.24:** - Rebase to KasmVNC Alpine baseimage, Update GPodder to 3.11.4 and update dependencies.
 
-* **06.04.23:** - Update GPodder to 3.11.1 and update dependencies.
-
-* **19.06.21:** -  Rebase to rdesktop-web Alpine baseimage.
-
+* **2.0.0:** Rebase to LinuxServer Selkies Alpine 3.24 base. gPodder 3.11.5 installed from the official release (`make install`) instead of a git checkout. One Dockerfile and one multi-arch build for both themes; light/dark is now gPodder's own setting. HTML show notes now render (WebKit2 4.1). Removed build-time edge/testing packages, unused dependencies and per-architecture tags. Automatic migration of 1.x session files.
+* **1.4.2 (31.01.24):** Rebase to KasmVNC Alpine baseimage, update gPodder to 3.11.4 and update dependencies.
+* **06.04.23:** Update gPodder to 3.11.1 and update dependencies.
+* **19.06.21:** Rebase to rdesktop-web Alpine baseimage.
 
 If you appreciate my work please consider buying me a coffee, cheers! 😁
 
